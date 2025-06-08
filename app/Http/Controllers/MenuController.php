@@ -13,14 +13,9 @@ class MenuController extends Controller
     public function index()
     {
          $menus = Menu::all();
-    return view('menu', compact('menus'));
+    return view('/Foodvana.menu', compact('menus'));
     }
 
-      public function home()
-    {
-         $menus = Menu::all();
-    return view('/foodvana.menu2', compact('menus'));
-    }
     /**
      * Show the form for creating a new resource.
      */

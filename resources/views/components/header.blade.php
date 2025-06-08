@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>@yield ('tittle','FoodVana Bandung')</title>
+  <title>FoodVana Bandung</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
@@ -25,7 +25,6 @@
 </head>
 <body>
 
-<!--navbar-->
   <nav class="navbar navbar-expand-lg px-4">
     <a class="navbar-brand d-flex align-items-center" href="#">
       <img src="{{ asset('img/logo fvb.png') }}" alt="Logo" width="30" height="30" class="rounded-circle me-2">
@@ -36,6 +35,7 @@
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="{{ url('/Foodvana') }}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url('/menu') }}">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url('/lokasi') }}">Lokasi</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url('/kontak') }}">Kontak Kami</a></li>
       </ul>
 

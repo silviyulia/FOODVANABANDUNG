@@ -51,4 +51,14 @@ class ProfilController extends Controller
 
         return redirect()->route('profil.show')->with('success', 'Profil berhasil diperbarui!');
     }
+
+}
+
+class ProfilController extends Controller
+{
+    public function index()
+    {
+        return view('profil');
+    }
+
 }

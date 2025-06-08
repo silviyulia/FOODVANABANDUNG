@@ -21,7 +21,7 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login.process') }}">
+        <form method="POST" action="{{ route('loginprocess') }}">
             @csrf
             <label for="username">Username</label>
             <input type="text" id="username" name="username" placeholder="Enter Username" required>
@@ -36,4 +36,3 @@
     </div>
 </div>
 @endsection
-

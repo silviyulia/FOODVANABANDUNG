@@ -12,7 +12,7 @@
 
   <div class="mb-3">
     <a href="{{ url('/batal') }}" class="btn btn-outline-danger btn-sm">Batalkan Pemesanan</a>
-    <a href="{{ url('/editpesanan') }}" class="btn btn-outline-primary btn-sm">Edit Pemesanan</a>
+    <a href="{{ url('/order/1/edit') }}" class="btn btn-outline-primary btn-sm">Edit Pemesanan</a>
   </div>
 
   @php $total = 0; @endphp

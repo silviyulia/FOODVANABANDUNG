@@ -13,7 +13,7 @@
     <strong>User 1</strong><br/>
     <small>Foodie | Traveller</small>
     <div class="mb-3">
-    <a href="{{ url('/profil/edit') }}" class="btn btn-outline-primary btn-sm">Edit profile</a>
+    <a href="{{ url('/profil') }}" class="btn btn-outline-primary btn-sm">Edit profile</a>
   </div>
   </div>
 </section>

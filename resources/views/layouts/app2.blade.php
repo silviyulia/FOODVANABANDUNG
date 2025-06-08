@@ -11,7 +11,7 @@
   <!-- Feather Icons -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
-
+  <link rel=”stylesheet” href=”https://cdn.tailwindcss.com/3.4.1”>
 
   <!-- Custom per halaman -->
   @stack('head')
@@ -22,11 +22,6 @@
 
   <main class="py-4">
     @yield('content')
-
-    @if(auth()->check() && auth()->user()->role === 'user')
-    {{-- tampilkan menu/menu user --}}
-@endif
-
   </main>
 
   @include('components.footer')
