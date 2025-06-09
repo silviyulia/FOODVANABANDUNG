@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ProfilController extends Controller
 {
@@ -50,15 +52,6 @@ class ProfilController extends Controller
         }
 
         return redirect()->route('profil.show')->with('success', 'Profil berhasil diperbarui!');
-    }
-
-}
-
-class ProfilController extends Controller
-{
-    public function index()
-    {
-        return view('profil');
     }
 
 }

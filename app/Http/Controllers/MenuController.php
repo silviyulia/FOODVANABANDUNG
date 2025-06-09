@@ -13,7 +13,13 @@ class MenuController extends Controller
     public function index()
     {
          $menus = Menu::all();
-    return view('/Foodvana.menu', compact('menus'));
+    return view('menu', compact('menus'));
+    }
+
+    public function home()
+    {
+        $menus = Menu::all();
+        return view('Foodvana.menu', compact('menus'));
     }
 
     /**

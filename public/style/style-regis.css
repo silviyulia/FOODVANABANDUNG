@@ -1,34 +1,40 @@
-/* Navbar */
+/* Reset Default */
+body, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff73;
+    padding-top: 30px;
+}
+/* Navbar Style */
 .navbar {
-    background-color: #e39933;
-    padding: 15px 30px;
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000;
+    background-color: rgba(227, 153, 51, 1); /* Warna Orange */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 999;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+}
+
+.navbar .nav-link {
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.navbar .nav-link:hover {
+  color: rgb(255, 255, 255); /* saat hover */
 }
 
 .navbar-brand {
-    font-weight: bold;
-    color: #000;
-}
-
-.navbar-nav .nav-link {
-    color: #333;
-    font-weight: 500;
-}
-
-.navbar-nav .nav-link:hover {
-    color: #ffffff;
-}
-
-form[role="search"] input {
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    padding: 5px 10px;
+  font-weight: bold;
+  color: rgb(0, 0, 0) !important;
 }
 
 /* Register Container */
@@ -68,7 +74,9 @@ form[role="search"] input {
     color: #000000;
 }
 
-.register-form input {
+.register-form input[type="text"],
+.register-form input[type="email"],
+.register-form input[type="password"] {
     width: 95%;
     padding: 10px;
     margin-bottom: 15px;
@@ -76,10 +84,9 @@ form[role="search"] input {
     border-radius: 4px;
     font-size: 1rem;
     background: #ffffff;
-    color: #000;
+    color: #000000;
     transition: 0.3s;
 }
-
 .register-form input:focus {
     border-color: #5cb85c;
     outline: none;
@@ -124,3 +131,29 @@ form[role="search"] input {
     border-radius: 3px;
 }
 
+/* Dropdown select */
+.register-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: #ffffff;
+    color: #000000;
+    transition: 0.3s;
+}
+
+#register-role:focus {
+    background: #ffffff;
+    color: #000000;
+}
+
+/* Logo bundar */
+.circle-logo-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}

@@ -17,6 +17,7 @@ return new class extends Migration
         $table->text('deskripsi')->nullable();
         $table->string('gambar')->nullable(); // nama file gambar
         $table->decimal('rating', 3, 2)->default(0); // contoh: 4.5
+        $table->decimal('harga', 10, 2); // contoh: 10000.00
         $table->timestamps();
     });
 }

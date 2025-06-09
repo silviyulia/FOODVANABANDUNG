@@ -25,7 +25,7 @@ class LoginController extends Controller
         if ($user->role === 'admin') {
             return redirect('/dashboard');
         } elseif ($user->role === 'user') {
-            return redirect('/Foodvana');
+            return redirect('/Foodvana.home');
         } else {
             return redirect('/login');
         }
@@ -39,7 +39,7 @@ class LoginController extends Controller
         // Mengecek apakah pengguna sudah login
     if (Auth::check()) {
         // Jika sudah login, arahkan ke halaman home
-        return redirect('/user.home'); // Ganti dengan URL halaman utama yang sesuai
+        return redirect('Foodvana.home'); // Ganti dengan URL halaman utama yang sesuai
     }
     return view('login'); // Menampilkan halaman login jika belum login
     }

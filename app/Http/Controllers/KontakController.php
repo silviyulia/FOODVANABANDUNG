@@ -8,8 +8,15 @@ class KontakController extends Controller
 {
         public function index()
     {
+        return view('kontak_kami');
+    }   
+    
+    public function home()
+    {
         return view('Foodvana.kontak_kami');
     }
+
+    
     public function store(Request $request)
     {
         // Validasi input
@@ -30,4 +37,5 @@ class KontakController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat mengirim pesan.');
         }
 }
+
 }
