@@ -8,11 +8,14 @@ class KontakController extends Controller
 {
         public function index()
     {
-        return view('kontak_kami');
+        
+        $kontaks = Kontak::paginate(10); // atau ->all() jika tidak pakai pagination
+        return view('components.table_kontak', compact('kontaks'));
     }   
     
     public function home()
     {
+        
         return view('Foodvana.kontak_kami');
     }
 

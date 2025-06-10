@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ProfilController extends Controller
+class EditprofilController extends Controller
 {
     // Tampilkan halaman profil
     public function show()

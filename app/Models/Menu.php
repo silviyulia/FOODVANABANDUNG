@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
-    // Menentukan nama tabel jika tidak sesuai dengan konvensi Laravel
+    // Menentukan nama tabel 
     protected $table = 'menus';
 
     // Menentukan kolom-kolom yang bisa diisi secara massal
@@ -14,11 +14,8 @@ class Menu extends Model
         'nama',
         'deskripsi',
         'harga',
+        'rating',
         'gambar'
     ];
 
-    // Contoh relasi (kalau ada)
-    // public function kategori() {
-    //     return $this->belongsTo(Kategori::class);
-    // }
 }

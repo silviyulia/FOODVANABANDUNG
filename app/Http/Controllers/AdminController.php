@@ -14,6 +14,6 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.dashboard');  // Ganti dengan nama view dashboard admin kamu
+        return view('/dashboard'); // Menampilkan view dashboard admin yang benar
     }
 }
