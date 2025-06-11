@@ -46,12 +46,13 @@
     <form class="d-flex" role="search">
       <input class="form-control form-control-sm" type="search" placeholder="Search in site" />
     </form>
- 
+
+    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
      <li class="nav-item">
-  <a class="nav-link" href="{{ url('/profil') }}">
-    <i data-feather="user"></i>
-  </a>
-</li>
+    <a class="nav-link" href="{{ url('/profil') }}">
+      <i data-feather="user"></i>
+    </a>
+    </li></ul>
 
 
   </nav>

@@ -9,8 +9,8 @@ class KontakController extends Controller
         public function index()
     {
         
-        $kontaks = Kontak::paginate(10); // atau ->all() jika tidak pakai pagination
-        return view('components.table_kontak', compact('kontaks'));
+        
+        return view('kontak_kami');
     }   
     
     public function home()
