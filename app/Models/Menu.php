@@ -3,19 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Menu extends Model
 {
-    // Menentukan nama tabel 
-    protected $table = 'menus';
+     use HasFactory;
 
-    // Menentukan kolom-kolom yang bisa diisi secara massal
+    protected $table = 'menus';
     protected $fillable = [
+        'id',
         'nama',
         'deskripsi',
         'harga',
+        'gambar',
         'rating',
-        'gambar'
     ];
 
 }

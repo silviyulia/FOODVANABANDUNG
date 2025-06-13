@@ -41,9 +41,20 @@ class MenuController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(menu $menus)
     {
-        //
+         $menus = Menu::all();
+         foreach ($menus as $menu) {
+          $id[]= $menu->id;
+          $nama[] = $menu->nama;
+          $deskripsi[]= $menu->deskripsi;
+          $harga[]= $menu->harga;
+          $gambar[] = $menu->gambar;
+          $rating[]= $menu->rating;
+            }
+                return view('dashboard.menu', compact('id', 'nama', 'deskripsi', 'harga', 'gambar', 'rating'));
+        
+      
     }
 
     /**

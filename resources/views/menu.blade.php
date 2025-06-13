@@ -10,7 +10,7 @@
         @foreach ($menus as $menu)
             <div class="col-12 col-sm-6 col-md-3">
                 <div class="card h-100 shadow-sm">
-                    <img class="card-img-top" style="height:180px; object-fit:cover; border-radius:12px 12px 0 0;" src="{{ asset('img/' . $menu->gambar) }}" alt="{{ $menu->nama }}">
+                    <img class="card-img-top" style="height:180px; object-fit:cover; border-radius:12px 12px 0 0;" src="{{ asset('storage/' . $menu->gambar) }}" alt="{{ $menu->nama }}">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-center">{{ $menu->nama }}</h5>
                         <p class="card-text text-muted mb-2 text-center">{{ $menu->deskripsi }}</p>

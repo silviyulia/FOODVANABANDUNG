@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Kontak;
+use App\Models\User;
+use App\Models\Menu;
+
 
 class DashboardController extends Controller
 {
@@ -10,12 +14,25 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('dashboard');  
+        $kontaks = \App\Models\Kontak::orderBy('created_at', 'desc')->paginate(10);
+        $users = User::orderBy('created_at', 'desc')->paginate(10);
+        $menus = menu::all();
+        return view('dashboard', compact('kontaks', 'users', 'menus'));  
     }
 
     public function menu()
     {
-        return view('dashboard.menu');
+          $menus = Menu::all();
+         foreach ($menus as $menu) {
+          $id[]= $menu->id;
+          $nama[] = $menu->nama;
+          $deskripsi[]= $menu->deskripsi;
+          $harga[]= $menu->harga;
+          $gambar[] = $menu->gambar;
+          $rating[]= $menu->rating;
+            }
+                return view('dashboard.menu', compact('id', 'nama', 'deskripsi', 'harga', 'gambar', 'rating'));
+            
     }
 
     public function profile()

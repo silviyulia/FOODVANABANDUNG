@@ -8,11 +8,11 @@
 
 @section('content')
 <div class="container text-center mt-5">
-    @if($user)
-        <img src="{{ $user->profile_photo ?? asset('img/gprofile.jpg') }}" class="rounded-circle mb-3" width="120" height="120">
-        <h3>{{ $user->username ?? $user->name }}</h3>
-        <p class="text-muted mb-1">{{ $user->email }}</p>
-        <p>{{ $user->alamat ?? '-' }}</p>
+    @if(Auth::check())
+        <img src="{{ Auth::user()->profile_photo ? asset(Auth::user()->profile_photo) : asset('img/gprofile.jpg') }}" class="rounded-circle mb-3" width="120" height="120">
+        <h3>{{ Auth::user()->username ?? Auth::user()->name }}</h3>
+        <p class="text-muted mb-1">{{ Auth::user()->email }}</p>
+        <p>{{ Auth::user()->alamat ?? '-' }}</p>
         <a href="{{ route('profil.edit') }}" class="btn btn-sm btn-outline-primary">Edit Profil</a>
     @else
         <div class="alert alert-danger">Data user tidak ditemukan. Silakan login ulang.</div>

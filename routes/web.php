@@ -13,6 +13,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KulinerController;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('loginprocess');
@@ -38,6 +39,7 @@ Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store')
 
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::get('/menu2', [MenuController::class, 'home'])->name('menu.home');
+Route::put('/menu/{id}', [MenuController::class, 'update']);
 
 
 Route::get('/pesanan', [PesananController::class, 'pesanan']);
@@ -57,4 +59,6 @@ Route::put('/order/{id}', [OrderController::class, 'update'])->name('order.updat
 
 
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::resource('kuliner', KulinerController::class);
