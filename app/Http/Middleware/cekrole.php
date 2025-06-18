@@ -30,6 +30,6 @@ class CekRole
             return $next($request);
         }
         // Role tidak sesuai
-        return redirect('/login')->with('error', 'Akses ditolak.');
+        return redirect('/Foodvana')->with('error', 'Akses ditolak.');
     }
 }

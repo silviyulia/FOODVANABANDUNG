@@ -9,13 +9,13 @@
                     no
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    nama kuliner
+                    Nama kuliner
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    deskripsi
+                    Deskripsi
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Price
+                    Harga
                 </th>
                 <th scope="col" class="px-6 py-3">
                     Gambar
@@ -41,7 +41,7 @@
                         {{ $item->deskripsi }}
                     </td>
                     <td class="px-6 py-4 text-gray-800"> 
-                        ${{ $item->harga }}
+                        Rp{{ $item->harga }}
                     </td>
                     <td class="px-6 py-4">
                         <img src="{{ asset('storage/' . $item->gambar) }}" alt="Gambar Kuliner {{ $item->nama }}" class="w-20 h-20 object-cover rounded-lg">
@@ -65,7 +65,7 @@
                         <form action="{{ route('kuliner.destroy', $item->id) }}" method="POST" class="inline">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="font-medium text-red-600 hover:underline" onclick="return confirm('Apakah Anda yakin ingin menghapus item ini?');">Delete</button> {{-- Menghapus kelas dark --}}
+                            <button type="submit" class="font-medium text-red-600 hover:underline" onclick="return confirm('Apakah Anda yakin ingin menghapus item ini?');">Delete</button>
                         </form>
                     </td>
                 </tr>

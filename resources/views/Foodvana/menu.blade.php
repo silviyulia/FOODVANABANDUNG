@@ -3,7 +3,7 @@
 @section('title', 'Menu')
 
 @section('content')
-<div class="container py-5">
+<div class="container py-2" align ="center">
     <div class="row g-3">
         @foreach ($menus as $menu)
             <div class="col-12 col-sm-6 col-md-3">
@@ -20,7 +20,13 @@
                         </div>
                         <div class="mt-auto d-flex justify-content-between align-items-center">
                             <span class="fw-bold text-success fs-5">Rp{{ number_format($menu->harga, 0, ',', '.') }}</span>
-                            <a href="#" class="btn btn-sm btn-warning">Pesan</a>
+                            <a href="/cart_items" class="btn btn-sm btn-warning">
+                                 <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                             viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"/>
+                        </svg>
+                            </a>
                         </div>
                     </div>
                 </div>

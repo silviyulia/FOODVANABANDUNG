@@ -38,7 +38,7 @@
         <li class="nav-item"><a class="nav-link" href="{{ url('/kontak') }}">Kontak Kami</a></li>
       </ul>
 
-      @if (session('username'))
+      @if (Auth::check())
         <a class="btn btn-danger btn-sm ms-2" href="{{ url('/logout') }}">Logout</a>
       @else
         <a class="btn btn-success btn-sm ms-2" href="{{ url('/login') }}">Login</a>

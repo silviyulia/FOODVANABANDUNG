@@ -54,6 +54,7 @@
                 document.getElementById('edit_deskripsi').value = menuDeskripsi; // Mengisi textarea deskripsi
                 document.getElementById('edit_harga').value = menuHarga;
                 document.getElementById('edit_rating').value = menuRating;
+                document.getElementById('edit-menu-form').action = '/kuliner/' + menuId;
 
                 // Atur action form untuk update (penting untuk metode PUT)
                 editMenuForm.action = `{{ url('kuliner') }}/${menuId}`; // URL: /kuliner/{id}

@@ -4,35 +4,53 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use App\Models\User; 
+use App\Http\middleware\CekRole;
+
 
 class LoginController extends Controller
 {
-    public function login(Request $request)
+    public function index(Request $request)
     {
-        $request->validate([
+       
+        return view('login');
+
+    }
+    
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        $credentials = $request->only('username', 'password');
-
+        
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+            $request->session()->regenerate();
 
-            if ($user->role === 'admin') {
-                return redirect('/dashboard');
+            $user = Auth::user();
+            \Log::info('Login berhasil oleh: ' . $user->id . ', role: ' . $user->role);
+          
+
+           if ($user->role === 'admin') {
+                return redirect()->route('dashboard');
             } elseif ($user->role === 'user') {
-                return redirect('/Foodvana.home');
+                return redirect()->route('Foodvana.home');
             } else {
-                return redirect('/login');
+                return back()->with('error', 'Role pengguna tidak dikenali.');
             }
-        } else {
-            return back()->with('error', 'Username atau password salah.');
         }
     }
 
-    public function showLoginForm()
+    public function logout(Request $request)
     {
-        return view('login');
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        Log::info('User logged out successfully.');
+
+        return redirect('/Foodvana')->with('success', 'Berhasil logout.');
     }
 }

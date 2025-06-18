@@ -47,6 +47,8 @@ class KulinerController extends Controller
     }
     public function edit($id)
     {
+            
+
         $menu = menu::findOrFail($id);
         return view('kuliner.edit', compact('menu'));
     }

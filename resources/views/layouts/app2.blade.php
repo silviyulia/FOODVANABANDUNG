@@ -18,6 +18,7 @@
 </head>
 <body>
 
+  
   @include('components.header2')
 
   <main class="py-4">

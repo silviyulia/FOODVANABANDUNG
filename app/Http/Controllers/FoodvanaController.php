@@ -17,7 +17,9 @@ class FoodvanaController extends Controller
     //halaman setelah login */
     public function home()
     {
-        return view('Foodvana.home');
+        $user = auth()->user(); // Mendapatkan pengguna yang sedang login
+        return view('Foodvana.home', compact('user'));
+
     }
 
     /**

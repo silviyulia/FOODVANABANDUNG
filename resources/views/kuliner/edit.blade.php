@@ -1,4 +1,3 @@
-
 <div id="edit-menu-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-md max-h-full">
         <!-- Modal content -->
@@ -16,7 +15,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form id="edit-menu-form" method="POST" enctype="multipart/form-data" class="p-4 md:p-5">
+            <form id="edit-menu-form" action="" method="POST" enctype="multipart/form-data" class="p-4 md:p-5">
                 @csrf
                 @method('PUT') 
 
@@ -35,7 +34,7 @@
                     </div>
                     <div class="col-span-2">
                         <label for="edit_gambar" class="block mb-2 text-sm font-medium text-gray-900">Gambar Kuliner</label> 
-                        <input type="file" name="gambar" id="edit_gambar" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"> {{-- Menghapus kelas dark --}}
+                        <input type="file" name="gambar" id="edit_gambar" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
                         <p class="mt-1 text-sm text-gray-500" id="file_input_help">PNG, JPG or JPEG (MAX. 2MB).</p> 
                         <div id="current_image_preview" class="mt-2">
                             <p class="text-sm text-gray-700">Gambar saat ini:</p> 
@@ -55,3 +54,20 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+    function setUpdateForm(actionUrl, nama, harga, deskripsi, fotoUrl) {
+        // Set form action (URL update produk)
+        document.getElementById('form-update-produk').action = actionUrl;
+
+        // Isi field input di form update
+        document.getElementById('update-nama').value = nama;
+        document.getElementById('update-harga').value = harga;
+        document.getElementById('update-deskripsi').value = deskripsi;
+
+        // Set preview gambar lama
+        document.getElementById('preview-foto').src = fotoUrl;
+    }
+</script>

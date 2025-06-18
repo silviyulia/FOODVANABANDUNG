@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pesanan;
+
+
 
 class UserController extends Controller
 {
@@ -20,7 +23,7 @@ class UserController extends Controller
     public function profile()
     {
         // Logika untuk menampilkan profil pengguna
-        return view('Foodvana.profile');  // Ganti dengan nama view profil pengguna kamu
+        return view('profile');  // Ganti dengan nama view profil pengguna kamu
     }
 
     public function menu()
@@ -31,7 +34,7 @@ class UserController extends Controller
     public function kontak()
     {
         // Logika untuk menampilkan halaman kontak
-        return view('Foodvana.kontak');  // Ganti dengan nama view halaman kontak kamu
+        return view('kontak2');  // Ganti dengan nama view halaman kontak kamu
     }
     public function pesanan()
     {
