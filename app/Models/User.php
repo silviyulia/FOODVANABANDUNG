@@ -3,60 +3,35 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
-    /**
-     * Kolom yang bisa diisi secara massal.
-     *
-     * @var array
-     */
     protected $fillable = [
         'name',
         'username',
         'email',
         'password',
         'role',
+        'alamat',
+        'profile_photo',
+        'no_hp',
+        'email_verified_at',
     ];
 
-    /**
-     * Kolom yang disembunyikan saat serialisasi.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
-        'remember_token',
+    ];
+    protected $casts = [
+    'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Konversi tipe atribut.
-     *
-     * @return array
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'string', // remove 'hashed', use string
-        ];
-    }
 
-    /**
-     * Override untuk login pakai username, bukan email.
-     *
-     * @return string
-     */
-    public function getAuthIdentifierName()
-    {
-        return 'username';
-    }
+    public $timestamps = true;
 
-    // Pastikan password selalu di-hash saat set
+    // Simpan password selalu dalam bentuk hash
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = \Illuminate\Support\Facades\Hash::needsRehash($value)

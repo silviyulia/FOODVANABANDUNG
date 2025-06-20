@@ -19,6 +19,21 @@ class DashboardController extends Controller
         $menus = menu::all();
         return view('dashboard', compact('kontaks', 'users', 'menus'));  
     }
+  public function profile()
+    {
+       $sessionUser = session('user');
+
+        if (!$sessionUser) {
+            return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        // Ambil user dari database berdasarkan ID dari session
+        $user = User::find($sessionUser['id']);
+
+        return view('/', [
+            'user' => $user
+        ]);
+    }
 
     public function menu()
     {
@@ -35,12 +50,7 @@ class DashboardController extends Controller
             
     }
 
-    public function profile()
-    {
-        // Logika untuk menampilkan profil admin
-        return view('admin.profile'); // Ganti dengan nama view profil admin kamu
-    }
-
+  
     public function settings()
     {
         // Logika untuk menampilkan pengaturan admin
