@@ -38,4 +38,8 @@ class User extends Model
             ? \Illuminate\Support\Facades\Hash::make($value)
             : $value;
     }
+    public function transaksi()
+    {
+        return $this->hasMany(Transaksi::class, 'id_user');
+    }
 }

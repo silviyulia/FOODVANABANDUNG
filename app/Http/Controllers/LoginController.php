@@ -12,6 +12,8 @@ class LoginController extends Controller
     // Tampilkan form login
     public function index()
     {
+        
+
         return view('login');
     }
 
@@ -32,6 +34,8 @@ class LoginController extends Controller
             'role' => $user->role,
             'email' => $user->email,
         ]);
+
+        session(['user' => $user->toArray()]);
 
         return redirect()->route($user->role === 'admin' ? 'dashboard' : 'Foodvana.home');
     }

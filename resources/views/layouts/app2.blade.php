@@ -25,9 +25,9 @@
     @yield('content')
   </main>
 
-@auth
-  @include('components.footer')
-@endauth
+
+  
+
   <!-- Feather Icons -->
   <script>feather.replace();</script>
   

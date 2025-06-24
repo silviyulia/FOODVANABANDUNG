@@ -38,19 +38,19 @@
                                 min="1" 
                                 class="form-control text-center" 
                                 style="max-width: 60px;"
+                                data-harga="{{ $item->menu->harga }}"
                             />
                             <button type="button" class="btn btn-outline-secondary btn-increase" data-target="jumlah-{{ $item->id }}">+</button>
                         </div>
                     </form>
-                    <div class="item-total-price text-success fw-bold" id="total-{{ $item->id }}">
-                        Rp{{ number_format($item->menu->harga * $item->jumlah, 0, ',', '.') }}
-                    </div>
-                </div>
-
-                <!-- Harga -->
-                <div class="text-success fw-bold me-3" data-harga="{{ $item->menu->harga }}">
+                    <div class="text-success fw-bold me-3" data-harga="{{ $item->menu->harga }}">
                     Rp{{ number_format($item->menu->harga * $item->jumlah, 0, ',', '.') }}
                 </div>
+                </div>
+
+                <div class="item-total-price text-success fw-bold" id="total-{{ $item->id }}">
+                 Rp{{ number_format($item->menu->harga * $item->jumlah, 0, ',', '.') }}
+                        </div>
 
                 <!-- Tombol hapus -->
                 <form action="{{ route('cartitem.destroy', $item->id) }}" method="POST" class="ms-3">
@@ -72,9 +72,10 @@
     </div>
     <!-- Tombol Checkout -->
     @if($cartItems->count() > 0)
-        <form action="{{ route('cartitem.checkout') }}" method="POST" class="text-center">
+        <form action="{{ route('checkout') }}" method="POST" class="text-center">
         @csrf
-            <button class="btn btn-success mt-3">Checkout</button>
+        <input type="hidden" name="total" value="{{ $cartItems->sum(function($item) { return $item->menu->harga * $item->jumlah; }) }}">
+        <button class="btn btn-success mt-3">Checkout</button>
         </form>
     @else
         <p>Keranjang kosong.</p>
@@ -86,22 +87,27 @@
         const btnDecrease = document.querySelectorAll('.btn-decrease');
         const btnIncrease = document.querySelectorAll('.btn-increase');
 
-        function updateTotalPrice(itemId, pricePerItem) {
+        function formatRupiah(angka) {
+            return angka.toLocaleString('id-ID');
+        }
+
+        function updateTotalPrice(itemId) {
             const input = document.getElementById(`jumlah-${itemId}`);
+            const pricePerItem = parseInt(input.getAttribute('data-harga'));
             const totalPriceElement = document.getElementById(`total-${itemId}`);
             const quantity = parseInt(input.value);
             const totalPrice = pricePerItem * quantity;
-            totalPriceElement.innerText = `Rp${totalPrice.toLocaleString()}`;
+            totalPriceElement.innerText = `Rp${formatRupiah(totalPrice)}`;
             updateGrandTotal();
         }
 
         function updateGrandTotal() {
             let grandTotal = 0;
             document.querySelectorAll('.item-total-price').forEach(item => {
-                const priceText = item.innerText.replace('Rp', '').replace('.', '').replace(',', '.');
-                grandTotal += parseFloat(priceText);
+                const priceText = item.innerText.replace(/[^\d]/g, '');
+                grandTotal += parseInt(priceText) || 0;
             });
-            document.getElementById('grand-total').innerText = `Rp${grandTotal.toLocaleString()}`;
+            document.getElementById('grand-total').innerText = `Rp${formatRupiah(grandTotal)}`;
         }
 
         btnDecrease.forEach(btn => {
@@ -112,8 +118,7 @@
                 if (currentVal > 1) {
                     input.value = currentVal - 1;
                     const itemId = inputId.split('-')[1];
-                    const pricePerItem = parseFloat(this.closest('.d-flex').querySelector('[data-harga]').getAttribute('data-harga'));
-                    updateTotalPrice(itemId, pricePerItem);
+                    updateTotalPrice(itemId);
                 }
             });
         });
@@ -125,10 +130,21 @@
                 let currentVal = parseInt(input.value);
                 input.value = currentVal + 1;
                 const itemId = inputId.split('-')[1];
-                const pricePerItem = parseFloat(this.closest('.d-flex').querySelector('[data-harga]').getAttribute('data-harga'));
-                updateTotalPrice(itemId, pricePerItem);
+                updateTotalPrice(itemId);
             });
         });
     });
+    document.querySelector('form[action="{{ route('cartitem.checkout') }}"]').addEventListener('submit', function (e) {
+    const grandTotalText = document.getElementById('grand-total').innerText.replace(/[^\d]/g, '');
+    const totalInput = document.createElement('input');
+    const btnDecrease = document.querySelectorAll('.btn-decrease');
+    const btnIncrease = document.querySelectorAll('.btn-increase');
+    totalInput.type = 'hidden';
+    totalInput.name = 'total';
+    totalInput.value = grandTotalText;
+    this.appendChild(totalInput);
+
+});
+
 </script>
 @endsection

@@ -16,6 +16,7 @@ class ProfilController extends Controller
         if (!$user) {
             return redirect('/login')->with('error', 'Anda harus login dulu.');
         }
+        
 
         return view('profil', compact('user'));
     }
@@ -39,7 +40,8 @@ class ProfilController extends Controller
         'username' => 'required|string|max:100',
         'email' => 'required|email',
         'alamat' => 'nullable|string|max:255',
-        'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+        'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'no_hp' => 'nullable|string|max:15',
     ]);
 
     $sessionUser = session('user');
@@ -56,6 +58,7 @@ class ProfilController extends Controller
     $user->username = $request->username;
     $user->email = $request->email;
     $user->alamat = $request->alamat;
+    $user->no_hp = $request->no_hp;
 
     if ($request->hasFile('profile_photo')) {
         $path = $request->file('profile_photo')->store('profile', 'public');

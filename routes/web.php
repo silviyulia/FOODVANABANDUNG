@@ -15,6 +15,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\KulinerController;
 use App\Http\Controllers\CartItemController;
+use App\Http\Controllers\CheckoutController;
 
 // Login & Register
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -61,6 +62,16 @@ Route::delete('/cart_items/{id}', [CartItemController::class, 'destroy'])->name(
 Route::post('/cart_items/checkout', [CartItemController::class, 'checkout'])->name('cartitem.checkout');
 Route::put('/cart_items/{id}', [CartItemController::class, 'update'])->name('cartitem.update');
 
+Route::post('/Foodvana/checkout', function (Request $request) {
+    if (!$request->session()->has('user')) return redirect('/login');
+    return app(CheckoutController::class)->index();
+})->name('checkout');
+
+Route::get('/checkout', function (Request $request) {
+    if (!$request->session()->has('user')) return redirect('/login');
+    return app(CheckoutController::class)->index();
+})->name('checkout.index');
+
 Route::get('/menu2', [MenuController::class, 'home'])->name('menu.home');
 Route::get('/pesanan', [PesananController::class, 'pesanan'])->name('pesanan.index');
 
@@ -80,6 +91,7 @@ Route::post('/profil/update', function (Request $request) {
     if (!$request->session()->has('user')) return redirect('/login');
     return app(ProfilController::class)->update($request);
 })->name('profil.update');
+
 
 // Order
 Route::get('/order/{id}/edit', function (Request $request, $id) {

@@ -15,9 +15,10 @@
                  class="rounded-circle border border-secondary" width="170" height="170" alt="Foto Profil">
         </div>
 
+       
         <!-- Info Pengguna -->
         <div class="col-md-8">
-
+            
             <h3><strong>Nama:</strong> {{ $user['username'] ?? $user['name'] }}</h3>
             <p class="text-muted mb-1"><strong>Email:</strong> {{ $user['email'] }}</p>
             <p><strong>Alamat:</strong> {{ $user['alamat'] ?? '-' }}</p>

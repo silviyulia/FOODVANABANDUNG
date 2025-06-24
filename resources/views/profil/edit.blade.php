@@ -4,6 +4,7 @@
     <form action="{{ route('profil.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
+        
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" name="username" value="{{ $user['username'] }}" class="form-control" required>
