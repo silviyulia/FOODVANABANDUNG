@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h2 class="mb-3">Keranjang Belanja</h2>
     @foreach($cartItems as $item)
-        <div class="card mb-3 p-3" style="background-color:rgb(255, 255, 255); border-radius: 6px;">
+        <div class="card mb-2 p-2" style="background-color:rgb(255, 255, 255); border-radius: 6px;">
             <div class="d-flex justify-content-between align-items-center">
                 
                 <!-- Gambar menu -->
@@ -12,15 +12,15 @@
                     <img 
                         src="{{ asset('storage/' . $item->menu->gambar) }}" 
                         alt="{{ $item->menu->nama }}" 
-                        width="80" 
-                        height="80" 
+                        width="75" 
+                        height="75" 
                         style="object-fit: cover; border-radius: 8px;"
                     >
                 </div>
                 
                 <!-- Info menu dan kontrol jumlah -->
                 <div class="flex-grow-1 ms-3">
-                    <h5>{{ $item->menu->nama }}</h5>
+                    <h6>{{ $item->menu->nama }}</h6>
 
                     <form action="{{ route('cartitem.update', $item->id) }}" method="POST" class="d-flex align-items-center">
                         @csrf
@@ -29,7 +29,7 @@
                         <label for="jumlah-{{ $item->id }}" class="me-2 mb-0">Jumlah:</label>
 
                         <div class="input-group input-group-sm w-auto me-2">
-                            <button type="button" class="btn btn-outline-secondary btn-decrease" data-target="jumlah-{{ $item->id }}">-</button>
+                            <button type="submit" name="action" value="decrease" class="btn btn-outline-secondary">-</button>
                             <input 
                                 type="number" 
                                 id="jumlah-{{ $item->id }}" 
@@ -37,12 +37,13 @@
                                 value="{{ $item->jumlah }}" 
                                 min="1" 
                                 class="form-control text-center" 
-                                style="max-width: 60px;"
-                                data-harga="{{ $item->menu->harga }}"
+                                style="max-width: 40px;"
+                                readonly
                             />
-                            <button type="button" class="btn btn-outline-secondary btn-increase" data-target="jumlah-{{ $item->id }}">+</button>
+                            <button type="submit" name="action" value="increase" class="btn btn-outline-secondary">+</button>
                         </div>
                     </form>
+
                     <div class="text-success fw-bold me-3" data-harga="{{ $item->menu->harga }}">
                     Rp{{ number_format($item->menu->harga * $item->jumlah, 0, ',', '.') }}
                 </div>

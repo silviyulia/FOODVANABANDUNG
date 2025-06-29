@@ -34,8 +34,8 @@
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="{{ url('/Foodvana/home') }}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url('/menu2') }}">Menu</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url('/pesanan') }}">Pesanan</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url('/kontak2') }}">Kontak Kami</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url('/pesanan/show') }}">Pesanan</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url('/kontak2') }}">Tentang Kami</a></li>
       </ul>
     </div>
 
@@ -59,7 +59,7 @@
     </ul>
 
     <!-- Search -->
-    <form class="d-flex" role="search">
+    <form class="d-flex" role="search" action="{{ url('/menu2') }}" method="GET">
       <input class="form-control form-control-sm" type="search" placeholder="Search in site" />
     </form>
 
@@ -71,7 +71,11 @@
         </a>
       </li>
     </ul>
+
+
   </nav>
+
+
 
   <!-- Alert -->
   @if (session('success'))
@@ -88,4 +92,5 @@
     feather.replace();
   </script>
 </body>
+
 </html>

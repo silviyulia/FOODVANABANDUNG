@@ -29,9 +29,15 @@
             <div class="mt-2 text-end">
                 <a href="{{ route('logout') }}" class="btn btn-secondary">logout</a>    
         </div>
+        
     </div>
     @else
     <div class="alert alert-danger text-center mt-4">Data user tidak ditemukan. Silakan login ulang.</div>
     @endif
 </div>
+<!-- <div class="mt-2 text-center">
+    <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31911.81672122134!2d103.98026757631591!3d1.1765926372670685!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da2758035e2c13%3A0xa572c49d1f121dee!2sTj.%20Sengkuang%2C%20Kec.%20Batu%20Ampar%2C%20Kota%20Batam%2C%20Kepulauan%20Riau!5e0!3m2!1sid!2sid!4v1750941437032!5m2!1sid!2sid" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" object-fit="cover"></iframe>
+            </div> -->
 @endsection
+

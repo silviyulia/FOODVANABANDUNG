@@ -17,7 +17,13 @@ class DashboardController extends Controller
         $kontaks = \App\Models\Kontak::orderBy('created_at', 'desc')->paginate(10);
         $users = User::orderBy('created_at', 'desc')->paginate(10);
         $menus = menu::all();
-        return view('dashboard', compact('kontaks', 'users', 'menus'));  
+        return view('dashboard', compact('kontaks', 'users', 'menus'),[
+           'userCount' => User::count(),
+           'kontakCount' => Kontak::count(),
+           'menuCount' => Menu::count()
+
+        ]);  
+        
     }
   public function profile()
     {
@@ -48,6 +54,26 @@ class DashboardController extends Controller
             }
                 return view('dashboard.menu', compact('id', 'nama', 'deskripsi', 'harga', 'gambar', 'rating'));
             
+    }
+    public function kontak()
+    {
+        $kontaks = Kontak::all();
+        return view('dashboard.kontak', compact('kontaks'));
+        }
+        
+    public function user()
+    {
+        $users = User::all();
+        foreach ($users as $user) {
+            $id[]= $user-> id;
+            $username[]= $user-> username;
+            $email[]= $user-> email;
+            $password[]= $user-> password;
+            $role[]= $user-> role;
+            $photo_profil[]= $user-> photo_profil;
+            }
+
+        return view('dashboard.users', compact('users'));
     }
 
   

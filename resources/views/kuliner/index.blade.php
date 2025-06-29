@@ -1,8 +1,6 @@
 
-
 @extends('layouts.appadmin')
 @section('title', 'Daftar Menu Kuliner - FoodVana Bandung')
-
 
 
 @section('content')

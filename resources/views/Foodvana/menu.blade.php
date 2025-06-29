@@ -6,15 +6,15 @@
 <div class="container py-2" align ="center">
     <div class="row g-3">
         @foreach ($menus as $menu)
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="card h-100 shadow-sm">
-                    <img class="card-img-top" style="height:180px; object-fit:cover; border-radius:12px 12px 0 0;" src="{{ asset('storage/' . $menu->gambar) }}" alt="{{ $menu->nama }}">
+            <div class="col-12 col-sm-6 col-md-4">
+                <div class="card h-100 w-200 shadow-sm ">
+                    <img class="card-img-left" style="height:180px; object-fit:cover; border-radius:12px 12px 0 0;" src="{{ asset('storage/' . $menu->gambar) }}" alt="{{ $menu->nama }}">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-center">{{ $menu->nama }}</h5>
                         <p class="card-text text-muted mb-2 text-center">{{ $menu->deskripsi }}</p>
-                        <div class="mb-2 text-center">
+                         <div class="mb-2 text-center">
                             @for ($i = 1; $i <= 5; $i++)
-                                <span class="text-warning">{!! $i <= $menu->rating ? '&#9733;' : '&#9734;' !!}</span>
+                                <span class="text-warning ">{!! $i <= $menu->rating ? '&#9733;' : '&#9734;' !!}</span>
                             @endfor
                             <span class="badge bg-primary ms-2">{{ number_format($menu->rating, 1) }}</span>
                         </div>
@@ -33,7 +33,7 @@
                                     </button>
                                 </form>
                             </div>
-                    </div>
+                     </div>
                 </div>
             </div>
         @endforeach
@@ -42,5 +42,5 @@
 @endsection
 
 @push('head')
-  <link rel="stylesheet" href="{{ asset('/style/style-menu.css') }}">
+  <!-- <link rel="stylesheet" href="{{ asset('/style/style-menu.css') }}"> -->
 @endpush

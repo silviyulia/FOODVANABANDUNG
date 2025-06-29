@@ -8,11 +8,12 @@
 
 @section('content')
 <main class="contact-section container">
-  <h2>Kontak Kami</h2>
+  <h2>Tentang Kami</h2>
   <div class="contact-container">
 
     <form class="contact-form" method="POST" action="{{ route('kontak.store') }}">
       @csrf
+      <p>Kami selalu senang mendengar dari Anda! Apakah Anda memiliki pertanyaan, saran, kritik, atau ingin memberikan masukan mengenai layanan dan menu FoodVana Bandung? Jangan ragu untuk menghubungi kami melalui formulir di bawah ini. Tim kami akan segera merespons pesan Anda.</p>
       <label>Nama :</label>
       <input type="text" name="nama" placeholder="Masukkan nama..." required>
 

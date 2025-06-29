@@ -9,9 +9,13 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   
   <!-- Feather Icons -->
+   
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
+  <!-- CSS -->
   <link rel=”stylesheet” href=”https://cdn.tailwindcss.com/3.4.1”>
+  <link rel ="stylesheet" href="/public/style/flowbite.min.css">
+<!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" /> -->
 
   <!-- Custom per halaman -->
   @stack('head')
@@ -23,13 +27,13 @@
 
   <main class="py-4">
     @yield('content')
+
   </main>
 
 
-  
-
   <!-- Feather Icons -->
   <script>feather.replace();</script>
-  
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script> -->
+
 </body>
 </html>

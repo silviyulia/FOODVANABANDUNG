@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class transaksi extends Model // <--- INHERITANCE: class transaksi mewarisi dari class Model
 {
-    protected $table = 'transaksi';
+    protected $table = 'transaksis';
     protected $fillable = [   // <--- ENKAPSULASI: Properti protected (akses terbatas) yang mengontrol mass assignment
+    'id',
     'id_user',
     'total_harga',
     'alamat_pengiriman',
@@ -22,8 +23,16 @@ class transaksi extends Model // <--- INHERITANCE: class transaksi mewarisi dari
         return $this->belongsTo(User::class, 'id_user'); // Abstraksi: Detail relasi ditangani oleh Laravel
     }
 
-    public function menu()
+    public function menus()
     {
-        return $this->belongsTo(Menu::class, 'id_menu'); // Abstraksi: Detail relasi ditangani oleh Laravel
+        return $this->belongsToMany(Menu::class, 'transaksi_menu', 'id_transaksi', 'id_menu')
+                    ->withPivot('jumlah', 'harga');
+    }
+
+
+
+    public function detailTransaksi()
+    {
+        return $this->hasMany(DetailTransaksi::class);
     }
 }

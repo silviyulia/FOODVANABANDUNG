@@ -31,14 +31,14 @@
                         @enderror
                     </div>
 
-                    {{-- Rating --}}
+                    <!-- {{-- Rating --}}
                     <div class="col-span-2 md:col-span-1">
                         <label for="rating" class="block mb-2 text-sm font-medium text-gray-900">Rating (0-5)</label>
                         <input type="number" name="rating" id="rating" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Contoh: 4.5" step="0.1" min="0" max="5" value="{{ old('rating') }}">
                         @error('rating')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
-                    </div>
+                    </div> -->
 
                     {{-- Gambar Kuliner --}}
                     <div class="col-span-2">

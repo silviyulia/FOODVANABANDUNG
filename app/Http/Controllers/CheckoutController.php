@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 class CheckoutController extends Controller
 {
-    public function index()
+    public function show()
 {
     if (!session()->has('user')) {
         return redirect('/login')->with('error', 'Harap login terlebih dahulu.');
@@ -25,7 +25,32 @@ class CheckoutController extends Controller
     return view('Foodvana.checkout', compact('cartItems','user'));
 }
 
-  
+public function updateCheckout(Request $request)
+{
+    $validated = $request->validate([
+        'username' => 'required|string|max:255',
+        'alamat'   => 'required|string|max:255',
+        'no_hp'    => 'required|string|max:20',
+    ]);
+
+    session(['checkout_user' => $validated]);
+
+        return redirect()->route('checkout')->with('success', 'Informasi berhasil diperbarui.');
+}
+
+public function showCheckoutPage(Request $request)
+{
+
+    $user =session('user'); // Atau ambil dari session kalau kamu tidak pakai auth()
+    $cartItems = CartItem::where('id_user', $user['id'])->get();    
+    
+    return view('Foodvana.checkout', compact('cartItems', 'user'));
+}
+
+public function finish() {
+    return view('payment.finish');
+}
+
 
 public function checkout(Request $request)
 {
@@ -59,8 +84,8 @@ public function checkout(Request $request)
     return redirect('/cart_items')->with('success', 'Checkout berhasil!');
 }
 
-    public function payment()
-    {
-        return view('checkout.payment');
-    }
+    // public function payment()
+    // {
+    //     return view('checkout.payment');
+    // }
 }

@@ -3,81 +3,84 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Transaksi;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PesananController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function pesanan()
+//    public function index()
+//     {
+//         $transaksis = Transaksi::all(); // atau sesuai modelmu
+//         return view('pesanan.index', compact('transaksis'));
+
+//     }
+
+    public function show($id)
     {
-        
-        $pesanan = [
-            [
-                "nama" => "Nasi Timbel",
-                "harga" => 25000,
-                "quantity" => 1,
-                "gambar" => "img/nasi.jpg"
-            ],
-            [
-                "nama" => "Batagor",
-                "harga" => 10000,
-                "quantity" => 2,
-                "gambar" => "img/batagor.jpg"
-            ]
-        ];
+        // Ambil transaksi beserta detail menu yang dibeli
+        $transaksis = Transaksi::with('detailTransaksi.menu')->findOrFail($id);
 
-        return view('/Foodvana.pesanan', compact('pesanan'));
+        // Tampilkan ke view 'pesanan/detail.blade.php'
+        return view('pesanan.detail', compact('transaksis'));
     }
+
+
+   public function cetakStruk($id)
+    {
+        $transaksi = Transaksi::with('detailTransaksi.menu')->findOrFail($id);
+
+        $pdf = Pdf::loadView('pesanan.struk', compact('transaksi'));
+        return $pdf->download('struk-transaksi-' . $transaksi->id . '.pdf');
+    }
+
+    // public function pesanan()
+    // {
+        
+    //     $pesanan = [
+    //         [
+    //             "nama" => "Nasi Timbel",
+    //             "harga" => 25000,
+    //             "quantity" => 1,
+    //             "gambar" => "img/nasi.jpg"
+    //         ],
+    //         [
+    //             "nama" => "Batagor",
+    //             "harga" => 10000,
+    //             "quantity" => 2,
+    //             "gambar" => "img/batagor.jpg"
+    //         ]
+    //     ];
+
+    //     return view('/Foodvana.pesanan', compact('pesanan'));
+    // }
     
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
+  
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        $pesanan = Pesanan::findOrFail($id);
-    dd($pesanan); // cek apakah data nyampe
-    return view('editpemesanan', compact('pesanan'));
-        //
-    }
+    // public function edit(string $id)
+    // {
+    //     $pesanan = Pesanan::findOrFail($id);
+    // dd($pesanan); // cek apakah data nyampe
+    // return view('editpemesanan', compact('pesanan'));
+    //     //
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(string $id)
     {
         //

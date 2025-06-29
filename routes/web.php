@@ -16,6 +16,8 @@ use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\KulinerController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\MidtransSnapController;
+use App\Http\Controllers\TransaksiController;
 
 // Login & Register
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -60,20 +62,12 @@ Route::get('/cart_items', function (Request $request) {
 Route::post('/cart_items', [CartItemController::class, 'store'])->name('cartitem.store');
 Route::delete('/cart_items/{id}', [CartItemController::class, 'destroy'])->name('cartitem.destroy');
 Route::post('/cart_items/checkout', [CartItemController::class, 'checkout'])->name('cartitem.checkout');
-Route::put('/cart_items/{id}', [CartItemController::class, 'update'])->name('cartitem.update');
+Route::put('/cartitem/{id}', [CartItemController::class, 'update'])->name('cartitem.update');
 
-Route::post('/Foodvana/checkout', function (Request $request) {
-    if (!$request->session()->has('user')) return redirect('/login');
-    return app(CheckoutController::class)->index();
-})->name('checkout');
 
-Route::get('/checkout', function (Request $request) {
-    if (!$request->session()->has('user')) return redirect('/login');
-    return app(CheckoutController::class)->index();
-})->name('checkout.index');
 
-Route::get('/menu2', [MenuController::class, 'home'])->name('menu.home');
-Route::get('/pesanan', [PesananController::class, 'pesanan'])->name('pesanan.index');
+Route::get('/menu2', [MenuController::class, 'home'])->name('menu.home'); 
+
 
 // Profil
 Route::get('/profil', function (Request $request) {
@@ -93,18 +87,45 @@ Route::post('/profil/update', function (Request $request) {
 })->name('profil.update');
 
 
-// Order
-Route::get('/order/{id}/edit', function (Request $request, $id) {
-    if (!$request->session()->has('user')) return redirect('/login');
-    return app(OrderController::class)->edit($id);
-})->name('order.edit');
+// // Order
+// Route::get('/order/{id}/edit', function (Request $request, $id) {
+//     if (!$request->session()->has('user')) return redirect('/login');
+//     return app(OrderController::class)->edit($id);
+// })->name('order.edit');
 
-Route::put('/order/{id}', function (Request $request, $id) {
-    if (!$request->session()->has('user')) return redirect('/login');
-    return app(OrderController::class)->update($request, $id);
-})->name('order.update');
+// Route::put('/order/{id}', function (Request $request, $id) {
+//     if (!$request->session()->has('user')) return redirect('/login');
+//     return app(OrderController::class)->update($request, $id);
+// })->name('order.update');
 
+
+Route::get('/admin/users', [AdminController::class, 'table'])->name('admin.table');
+Route::get('/admin/kontaks', [AdminController::class, 'kontak'])->name('admin.kontak');
+Route::resource('admin' , AdminController::class);
+
+Route::post('checkout', function (Request $request) {
+    if (!$request->session()->has('user')) return redirect('/login');
+    return app(CheckoutController::class)->show();
+})->name('checkout');
+
+// Route::post('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout/update', [CheckoutController::class, 'updateCheckout'])->name('checkout.update');
+Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('checkout');
+Route::get('/payment/finish', [CheckoutController::class, 'finish'])->name('payment.finish');
+
+Route::post('/checkout.process', [MidtransSnapController::class, 'createTransaction'])->name('checkout.process');
+// Route::get('payment.success',[MidtransSnapController::class,'success'])->name(payment.success);
+// Route::post('/midtrans/notification', [MidtransSnapController::class, 'handleNotification']);
+Route::get('/cancel', [MidtransSnapController::class, 'cancel'])-> name('cancel');
+Route::get('/callback', [MidtransSnapController::class, 'callback'])-> name('callback');
+
+// pesanan
+// Route::get('/pesanan', [PesananController::class, 'index']);
+// Route::get('/pesanan/detail', [PesananController::class, 'detail']);
+Route::get('/pesanan/{id}', [PesananController::class, 'show'])->name('pesanan.show');
+Route::get('/pesanan/{id}/cetak', [PesananController::class, 'cetakStruk'])->name('pesanan.cetak');
 // Test session
 Route::get('/test', function (Request $request) {
     return $request->session()->has('user') ? $request->session()->get('user') : 'Belum login';
 });
+

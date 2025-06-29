@@ -96,21 +96,26 @@ public function checkout(Request $request)
     }
     public function update(Request $request, $id)
 {
-    if (!session()->has('user')) {
-        return response()->json(['error' => 'Unauthorized'], 401);
+    $cartItem = CartItem::findOrFail($id);
+
+    $action = $request->input('action');
+    $jumlah = $cartItem->jumlah;
+
+    if ($action === 'increase') {
+        $jumlah += 1;
+    } elseif ($action === 'decrease') {
+        if ($jumlah > 1) {
+            $jumlah -= 1;
+        }
+    } else {
+        // Kalau pakai input manual jumlah
+        $jumlah = max(1, intval($request->input('jumlah')));
     }
 
-    $userId = session('user')['id'];
+    $cartItem->jumlah = $jumlah;
+    $cartItem->save();
 
-    $request->validate([
-        'jumlah' => 'required|integer|min:1'
-    ]);
-
-    $item = CartItem::where('id_user', $userId)->findOrFail($id);
-    $item->jumlah = $request->jumlah;
-    $item->save();
-
-    return response()->json(['success' => true]);
+    return redirect()->back()->with('success', 'Jumlah berhasil diperbarui');
 }
 
 }

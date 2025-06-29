@@ -56,6 +56,15 @@ class MenuController extends Controller
         
       
     }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $menus = menu::where('nama', 'LIKE', "%{$query}%")
+            ->orWhere('deskripsi', 'LIKE', "%{$query}%")
+            ->get();
+
+        return view('Foodvana.menu2', compact('menus'));
+    }
 
     /**
      * Show the form for editing the specified resource.
