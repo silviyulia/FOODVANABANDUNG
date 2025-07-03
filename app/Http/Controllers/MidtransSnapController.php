@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Midtrans\Config;
 use Midtrans\Snap;
 use App\Models\Transaksi;
 use App\Models\CartItem;
+use App\Models\DetailTransaksi;
 
 class MidtransSnapController extends Controller
 {
@@ -24,57 +26,101 @@ class MidtransSnapController extends Controller
 
     }
 
-    public function createTransaction(Request $request)
-    {
-        // Konfigurasi Midtrans
-        Config::$serverKey = config('services.midtrans.server_key');        
-        Config::$isProduction = false; // Ubah jadi true jika sudah live
-        Config::$isSanitized = true;
-        Config::$is3ds = true;
+public function createTransaction(Request $request)
+{
+    // Konfigurasi Midtrans
+    Config::$serverKey = config('services.midtrans.server_key');
+    Config::$isProduction = false;
+    Config::$isSanitized = true;
+    Config::$is3ds = true;
 
-        $userId = session('user')['id'];
-        $user = \App\Models\User::find($userId);
-        $user-> update([ 'midtrans_status' => 'pending' ]);
-        $user-> save();
-
-    
-         // Ambil total harga dari request
-        $grossAmount = $request->input('total');
-
-        if (!is_numeric($grossAmount) || $grossAmount <= 0) {
-            return redirect()->route('checkout')->with('error', 'Total pembayaran tidak valid. Mohon periksa kembali pesanan Anda.');
-        }
+    // Ambil user dari session
+    $sessionUser = session('user');
+    if (!$sessionUser || !isset($sessionUser['id'])) {
+        return redirect()->route('checkout')->with('error', 'User tidak ditemukan dalam sesi.');
+    }
+    //validasi metode pembayaran
+    $request->validate([
+        'payment_method' => 'required|in:dana,gopay,ovo,transfer_bni,transfer_bri,transfer_mandiri,transfer_bca,cash',
+    ]);
 
 
-        // $customUser = session('checkout_user');
+    $userId = $sessionUser['id'];
+    $user = \App\Models\User::find($userId);
+    if (!$user) {
+        return redirect()->route('checkout')->with('error', 'User tidak ditemukan di database.');
+    }
 
-        // $firstName = $customUser['username'] ?? $request->user()['username'];
-        // $email     = $customUser['email'] ?? $request->user()['email'];
-        // $phone     = $checkoutUser['no_hp'] ?? $user['no_hp']
-        // $alamat = $checkoutUser['alamat'] ?? $user['alamat']
+    $user->update(['midtrans_status' => 'pending']);
 
-        $transaksis = Transaksi::create([
-                'id_user' => $userId,
-                'total_harga' => $grossAmount,
-                'alamat_pengiriman' => $user->alamat,
-                'no_hp' => $user-> no_hp,
-                'metode_pembayaran' => 'midtrans','Gopay','dana','bni', 'Qris',
-                'status' => 'success',
-                'tanggal_transaksi' => now(),
-            ]);
-        // Bentuk parameter untuk Snap
-        $orderId = 'ORDER-' . $transaksis->id;
-        $params = [
-            'transaction_details' => [
-                'order_id' => $orderId,
-                'gross_amount' => $grossAmount,
-            ],
-            'customer_details' => [
-                'first_name' => $user->username,
-                'email' => $user-> email,
-                'phone' => $user-> no_hp,
-                'Address' => $user->alamat,
-            ],
+    // Validasi total harga
+    $grossAmount = $request->input('total');
+    if (!is_numeric($grossAmount) || $grossAmount <= 0) {
+        return redirect()->route('checkout')->with('error', 'Total pembayaran tidak valid.');
+    }
+
+    // Ambil data checkout dari session
+    $checkoutUser = session('checkout_user') ?? [];
+
+    $firstName = $checkoutUser['username'] ?? $user->username;
+    $email     = $checkoutUser['email'] ?? $user->email;
+    $phone     = $checkoutUser['no_hp'] ?? $user->no_hp;
+    $address   = $checkoutUser['alamat'] ?? $user->alamat;
+
+    // Simpan transaksi utama
+    $transaksi = Transaksi::create([
+        'id_user' => $userId,
+        'total_harga' => $grossAmount,
+        'alamat_pengiriman' => $address,
+        'no_hp' => $phone,
+        'metode_pembayaran' => $request->input('payment_method') ?? 'midtrans',
+        'status' => 'success',
+        'tanggal_transaksi' => now(),
+    ]);
+
+
+    $cartItems = CartItem::where('id_user', $userId)->get();
+
+    foreach ($cartItems as $item) {
+        $hargaSatuan = $item->menu->harga;
+        $jumlah = $item->jumlah;
+        $subtotal = $hargaSatuan * $jumlah;
+        DetailTransaksi ::create([
+            'id_transaksi' => $transaksi->id,
+            'id_menu' => $item->id_menu,
+            'jumlah' => $jumlah,
+            'harga_satuan' => $hargaSatuan,
+            'subtotal' => $subtotal,
+        ]);
+
+    // Hapus cart setelah berhasil simpan transaksi
+    CartItem::where('id_user', $userId)->delete();
+
+    // Buat parameter untuk Midtrans Snap
+    $orderId = 'ORDER-' . $transaksi->id;
+    $params = [
+        'transaction_details' => [
+            'order_id' => $orderId,
+            'gross_amount' => $grossAmount,
+        ],
+        'customer_details' => [
+            'first_name' => $firstName,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+        ],
+    ];
+
+    // Generate Snap token
+    try {
+        $snapToken = Snap::getSnapToken($params);
+        return view('payment.confirmation', compact('snapToken','transaksi', 'cartItems'));
+    } catch (\Exception $e) {
+        return redirect()->route('checkout')->with('error', 'Gagal membuat transaksi: ' . $e->getMessage());
+    }
+}
+}
+
             // 'product_details' => [
             //     'Product ID' => 
             //     'Product name' =>{{ $item->menu->nama }}
@@ -87,12 +133,7 @@ class MidtransSnapController extends Controller
 
             // ],
 
-        ];
 
-        // Membuat Snap Token
-    $snapToken = \Midtrans\Snap::getSnapToken($params);
-        return view('payment.confirmation', compact('snapToken', 'orderId'));
-    }
     // return redirect()-> route('payment.success');
 
     public function handleNotification(Request $request)
@@ -113,6 +154,7 @@ class MidtransSnapController extends Controller
                 // Bayar sukses
             }
         }
+
     } elseif ($transactionStatus == 'settlement') {
         // Pembayaran selesai
     } elseif ($transactionStatus == 'pending') {
@@ -124,19 +166,25 @@ class MidtransSnapController extends Controller
     return response()->json(['message' => 'Notification handled']);
     }
 
-public function storeTransaction(Request $request)
-{
-    Transaksi::create([
-        'id_user' => $userId,
-        'total_harga' => $request->gross_amount,
-        'alamat_pengiriman' => $request->alamat_pengiriman,
-        'no_hp' => $request->no_hp,
-        'metode_pembayaran' => 'midtrans',
-        'status' => 'Sukses',
-        'tanggal_transaksi' => now(),
-    ]);
+//     public function paymentFinish(Request $request)
+// {
+//     // Ambil order_id dari query string Midtrans
+//     $orderId = $request->get('order_id'); // e.g. ORDER-123
 
-    return redirect()->route('home')->with('success', 'Transaksi berhasil disimpan!');
-}
+//     // Ambil ID transaksi dari order_id
+//     $transaksiId = str_replace('ORDER-', '', $orderId);
+
+//     // Cari transaksi
+//     $transaksi = Transaksi::with('detailTransaksi.menu')->findOrFail($transaksiId);
+
+//     // Tampilkan halaman sukses
+//     return view('payment.success', compact('transaksi'));
+// }
+
+
+    public function menu()
+    {
+    return $this->belongsTo(Menu::class, 'id_menu');
+    }
 }
 

@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container text-center mt-5">
+    <div class="row justify-content-center" >
     <h4>Silakan lanjutkan pembayaran</h4>
     <button id="pay-button" class="btn btn-primary mt-3">Bayar Sekarang</button>
 </div>

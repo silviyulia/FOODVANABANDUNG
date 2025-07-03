@@ -18,5 +18,11 @@ class Menu extends Model
         'gambar',
         'rating',
     ];
+   public function detail_transaksis()
+{
+    return $this->belongsToMany(DetailTransaksi::class, 'id_menu', 'id_transaksi')
+                ->withPivot('jumlah','harga')
+                ->withTimestamps();
+}
 
 }

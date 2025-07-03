@@ -4,23 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaksi;
+use App\Models\DetailTransaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class PesananController extends Controller
 {
-//    public function index()
+//    public function index(Request $request)
 //     {
-//         $transaksis = Transaksi::all(); // atau sesuai modelmu
-//         return view('pesanan.index', compact('transaksis'));
+//         $userId = $sessionUser['id'];
+//     $user = \App\Models\User::find($userId);
+//          $transaksis = Transaksi::with('detailTransaksi.menu')
+//                     ->where('id_user', $userId)
+//                     ->latest()
+//                     ->get();
+
+
+//         return view('pesanan.detail', compact('transaksis', 'detail_transaksis'));
 
 //     }
 
     public function show($id)
     {
-        // Ambil transaksi beserta detail menu yang dibeli
+    // Ambil transaksi beserta detail menu yang dibeli
         $transaksis = Transaksi::with('detailTransaksi.menu')->findOrFail($id);
 
-        // Tampilkan ke view 'pesanan/detail.blade.php'
+    // validasi agar hanya user terkait yang bisa akses
+        if ($transaksi->id_user !== auth()->id()) {
+            abort(403, 'Akses ditolak');
+        }
+
+    // Tampilkan ke view 'pesanan/detail.blade.php'
         return view('pesanan.detail', compact('transaksis'));
     }
 
@@ -31,6 +45,11 @@ class PesananController extends Controller
 
         $pdf = Pdf::loadView('pesanan.struk', compact('transaksi'));
         return $pdf->download('struk-transaksi-' . $transaksi->id . '.pdf');
+    }
+
+     public function menu()
+    {
+    return $this->belongsTo(Menu::class, 'id_menu');
     }
 
     // public function pesanan()

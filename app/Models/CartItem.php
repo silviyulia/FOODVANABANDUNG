@@ -21,4 +21,8 @@ class CartItem extends Model
     {
         return $this->belongsTo(Menu::class, 'id_menu');
     }
+    public function transaksi()
+    {
+        return $this-> hasMany(Transaksi::class, 'id_transaksi');
+        }
 }

@@ -64,8 +64,6 @@ Route::delete('/cart_items/{id}', [CartItemController::class, 'destroy'])->name(
 Route::post('/cart_items/checkout', [CartItemController::class, 'checkout'])->name('cartitem.checkout');
 Route::put('/cartitem/{id}', [CartItemController::class, 'update'])->name('cartitem.update');
 
-
-
 Route::get('/menu2', [MenuController::class, 'home'])->name('menu.home'); 
 
 
@@ -114,6 +112,8 @@ Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('
 Route::get('/payment/finish', [CheckoutController::class, 'finish'])->name('payment.finish');
 
 Route::post('/checkout.process', [MidtransSnapController::class, 'createTransaction'])->name('checkout.process');
+Route::get('/payment/finish', [MidtransController::class, 'paymentFinish']);
+
 // Route::get('payment.success',[MidtransSnapController::class,'success'])->name(payment.success);
 // Route::post('/midtrans/notification', [MidtransSnapController::class, 'handleNotification']);
 Route::get('/cancel', [MidtransSnapController::class, 'cancel'])-> name('cancel');
@@ -121,7 +121,7 @@ Route::get('/callback', [MidtransSnapController::class, 'callback'])-> name('cal
 
 // pesanan
 // Route::get('/pesanan', [PesananController::class, 'index']);
-// Route::get('/pesanan/detail', [PesananController::class, 'detail']);
+// Route::get('/pesanan.detail', [PesananController::class, 'detail']);
 Route::get('/pesanan/{id}', [PesananController::class, 'show'])->name('pesanan.show');
 Route::get('/pesanan/{id}/cetak', [PesananController::class, 'cetakStruk'])->name('pesanan.cetak');
 // Test session

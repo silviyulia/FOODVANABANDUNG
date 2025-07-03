@@ -100,14 +100,13 @@
                     <div class="mb-3">
                         <label for="payment_method" class="form-label">Pilih Metode Pembayaran</label>
                         <select name="payment_method" id="payment_method" class="form-select">
-                            <option value="bca">BCA</option>
-                            <option value="bri">BRI</option>
-                            <option value="bni">BNI</option>
-                            <option value="mandiri">Mandiri</option>
+                            <option value="transfer_bca">BCA</option>
+                            <option value="transfer_bri">BRI</option>
+                            <option value="transfer_bni">BNI</option>
+                            <option value="transfer_mandiri">Mandiri</option>
                             <option value="ovo">OVO</option>
                             <option value="gopay">Gopay</option>
                             <option value="dana">DANA</option>
-                            <option value="transfer">Transfer</option>
                             <option value="cash">Cash on Delivery</option>
                         </select>
                     </div>
@@ -138,7 +137,7 @@
 
             <div class="text-center mb-4">
                 <p>Pastikan semua data sudah benar sebelum melanjutkan.</p>
-                <button type="submit" class="btn btn-success btn-lg px-5">
+                <button type="submit" id="pay-button" class="btn btn-success btn-lg px-5">
                     <i class="fas fa-check-circle me-2"></i>Konfirmasi Pembayaran
                 </button>
             </div>
@@ -160,6 +159,5 @@
 
 {{-- Scripts --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://app.sandbox.midtrans.com/snap/snap.js"
-    data-client-key="{{ config('services.midtrans.client_key') }}"></script>
+
 @endsection

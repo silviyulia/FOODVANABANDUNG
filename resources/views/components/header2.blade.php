@@ -6,6 +6,7 @@
   <title>FoodVana Bandung</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+ 
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
   <link rel="stylesheet" href="{{ asset('style/style.css') }}">
@@ -34,7 +35,7 @@
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="{{ url('/Foodvana/home') }}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url('/menu2') }}">Menu</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url('/pesanan/show') }}">Pesanan</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url('/pesanan/detail') }}">Pesanan</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url('/kontak2') }}">Tentang Kami</a></li>
       </ul>
     </div>

@@ -3,6 +3,7 @@
 @section('title', 'Detail Pesanan')
 
 @section('content')
+
 <div class="max-w-4xl mx-auto mt-10">
     <div class="bg-white shadow-md rounded-lg p-6">
         <h2 class="text-2xl font-bold mb-4 text-gray-800">Detail Transaksi #{{ $transaksi->id }}</h2>
@@ -47,6 +48,15 @@
             <a href="{{ route('pesanan.cetak', $transaksi->id) }}" target="_blank"
                class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
                 🧾 Cetak Struk
+            </a>
+        </div>
+        <div class="mt-4 text-right">
+            <a href="{{ url('/home') }}"class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 hover:text-blue-700 transition">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2"
+                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Kembali ke Beranda
             </a>
         </div>
     </div>

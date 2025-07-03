@@ -24,10 +24,10 @@
             <p><strong>Alamat:</strong> {{ $user['alamat'] ?? '-' }}</p>
             <p><strong>No. HP:</strong> {{ $user['no_hp'] ?? '-' }}</p>
             <div class="mt-3 text-end">
-                <a href="{{ route('profil.edit') }}" class="btn btn-primary">Edit Profil</a>
+                <a href="{{ route('profil.edit') }}" class="btn btn-secondary">Edit Profil</a>
             </div>
             <div class="mt-2 text-end">
-                <a href="{{ route('logout') }}" class="btn btn-secondary">logout</a>    
+                <a href="{{ route('logout') }}" class="btn btn-primary">logout</a>    
         </div>
         
     </div>

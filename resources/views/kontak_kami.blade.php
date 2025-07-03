@@ -10,6 +10,7 @@
 <main class="contact-section container">
   <h2>Kontak Kami</h2>
   <div class="contact-container">
+      <p>Kami selalu senang mendengar dari Anda! Apakah Anda memiliki pertanyaan, saran, kritik, atau ingin memberikan masukan mengenai layanan dan menu FoodVana Bandung? Jangan ragu untuk menghubungi kami melalui formulir di bawah ini. Tim kami akan segera merespons pesan Anda.</p>
 
     <form class="contact-form" method="POST" action="{{ route('kontak.store') }}">
       @csrf

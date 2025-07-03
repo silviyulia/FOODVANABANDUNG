@@ -2,7 +2,17 @@
 
 @section('content')
 <div class="container mt-4">
-    <h2 class="mb-3">Keranjang Belanja</h2>
+    
+<!-- notifikasi -->
+    @if(session('error') || isset($error))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ session('error') ?? $error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+
+    <h2 class="mb-3" style="color:rgb(195, 133, 10); text-shadow: 1px 1px 2px rgba(255, 255, 255, 1.7);">Keranjang Belanja</h2>
     @foreach($cartItems as $item)
         <div class="card mb-2 p-2" style="background-color:rgb(255, 255, 255); border-radius: 6px;">
             <div class="d-flex justify-content-between align-items-center">
@@ -45,7 +55,7 @@
                     </form>
 
                     <div class="text-success fw-bold me-3" data-harga="{{ $item->menu->harga }}">
-                    Rp{{ number_format($item->menu->harga * $item->jumlah, 0, ',', '.') }}
+                    Rp{{ number_format($item->menu->harga, 0, ',', '.') }}
                 </div>
                 </div>
 
@@ -64,9 +74,9 @@
         </div>
     @endforeach
 
-    <div class="d-flex justify-content-end">
-        <h4>Total: 
-            <span class="text-success" id="grand-total">
+    <div class="d-flex justify-content-end ">
+        <h4 style="color:rgb(195, 133, 10); text-shadow: 1px 1px 2px rgba(255, 255, 255, 1.7); ">Total: 
+            <span class="text-success" id="grand-total" >
                 Rp{{ number_format($cartItems->sum(function($item) { return $item->menu->harga * $item->jumlah; }), 0, ',', '.') }}
             </span>
         </h4>
@@ -78,10 +88,12 @@
         <input type="hidden" name="total" value="{{ $cartItems->sum(function($item) { return $item->menu->harga * $item->jumlah; }) }}">
         <button class="btn btn-success mt-3">Checkout</button>
         </form>
-    @else
-        <p>Keranjang kosong.</p>
+    
+
+
     @endif
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

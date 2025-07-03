@@ -30,5 +30,8 @@
     "bugs": {
         "url": "https://github.com/silviyulia/FOODVANABANDUNG/issues"
     },
-    "homepage": "https://github.com/silviyulia/FOODVANABANDUNG#readme"
+    "homepage": "https://github.com/silviyulia/FOODVANABANDUNG#readme",
+    "dependencies": {
+        "flowbite": "^3.1.2"
+    }
 }

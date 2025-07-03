@@ -17,6 +17,12 @@ class CartItemController extends Controller
             ->where('id_user', $userId)
             ->get();
 
+            if ($cartItems->isEmpty()) {
+                return view('cart_items', [
+                'cartItems' => $cartItems,
+                'error' => 'Keranjang kamu kosong!'
+            ]);
+        }
         
 
         return view('cart_items', compact('cartItems'));

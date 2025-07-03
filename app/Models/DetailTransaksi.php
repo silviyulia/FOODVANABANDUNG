@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class DetailTransaksi extends Model
 {
-    protected $table = 'detail_transaksi';
+    protected $table = 'detail_transaksis';
 
     protected $fillable = [
         'id_transaksi',
         'id_menu',
         'jumlah',
-        'harga',
+        'harga_satuan',
         'subtotal',
     ];
 
