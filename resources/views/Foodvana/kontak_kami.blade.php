@@ -11,8 +11,8 @@
 
 @section('content')
 <main class="contact-section container">
-  <h2>Tentang Kami</h2>
-      <p>Kami selalu senang mendengar dari Anda! Apakah Anda memiliki pertanyaan, saran, kritik, atau ingin memberikan masukan mengenai layanan dan menu FoodVana Bandung? Jangan ragu untuk menghubungi kami melalui formulir di bawah ini. Tim kami akan segera merespons pesan Anda.</p>
+  <h2>Kontak kami</h2>
+      <p style="color: rgb(0, 0, 0);">Kami selalu senang mendengar dari Anda! Apakah Anda memiliki pertanyaan, saran, kritik, atau ingin memberikan masukan mengenai layanan dan menu FoodVana Bandung? Jangan ragu untuk menghubungi kami melalui formulir di bawah ini. Tim kami akan segera merespons pesan Anda.</p>
 
   <div class="contact-container">
 

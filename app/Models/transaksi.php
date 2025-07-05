@@ -31,8 +31,8 @@ class transaksi extends Model // <--- INHERITANCE: class transaksi mewarisi dari
 
 
 
-    public function detailTransaksi()
-    {
-        return $this->hasMany(DetailTransaksi::class);
-    }
+   public function detailTransaksi()
+{
+    return $this->hasMany(DetailTransaksi::class, 'id_transaksi');
+}
 }

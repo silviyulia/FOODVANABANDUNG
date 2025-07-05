@@ -10,19 +10,27 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PesananController extends Controller
 {
-//    public function index(Request $request)
-//     {
-//         $userId = $sessionUser['id'];
-//     $user = \App\Models\User::find($userId);
-//          $transaksis = Transaksi::with('detailTransaksi.menu')
-//                     ->where('id_user', $userId)
-//                     ->latest()
-//                     ->get();
+public function index(Request $request)
+{
+    $sessionUser = session('user'); // Ambil data user dari session
+
+    if (!$sessionUser) {
+        return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
+    }
+
+    $userId = $sessionUser['id'];
+
+    $transaksis = Transaksi::with('detailTransaksi.menu')
+        ->where('id_user', $userId)
+        ->latest()
+        ->get();
+
+    return view('pesanan.detail', compact('transaksis'));
+}
 
 
-//         return view('pesanan.detail', compact('transaksis', 'detail_transaksis'));
 
-//     }
+
 
     public function show($id)
     {
@@ -51,6 +59,12 @@ class PesananController extends Controller
     {
     return $this->belongsTo(Menu::class, 'id_menu');
     }
+
+    public function detailTransaksi()
+{
+    return $this->hasMany(DetailTransaksi::class, 'id_transaksi');
+}
+
 
     // public function pesanan()
     // {

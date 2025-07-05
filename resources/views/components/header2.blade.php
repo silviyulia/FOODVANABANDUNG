@@ -35,8 +35,8 @@
       <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
         <li class="nav-item"><a class="nav-link" href="{{ url('/Foodvana/home') }}">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url('/menu2') }}">Menu</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url('/pesanan/detail') }}">Pesanan</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url('/kontak2') }}">Tentang Kami</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url('/pesanan') }}">Pesanan</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url('/kontak2') }}">Kontak Kami</a></li>
       </ul>
     </div>
 

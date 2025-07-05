@@ -92,6 +92,7 @@ public function createTransaction(Request $request)
             'harga_satuan' => $hargaSatuan,
             'subtotal' => $subtotal,
         ]);
+    }
 
     // Hapus cart setelah berhasil simpan transaksi
     CartItem::where('id_user', $userId)->delete();
@@ -119,7 +120,6 @@ public function createTransaction(Request $request)
         return redirect()->route('checkout')->with('error', 'Gagal membuat transaksi: ' . $e->getMessage());
     }
 }
-}
 
             // 'product_details' => [
             //     'Product ID' => 
@@ -127,10 +127,6 @@ public function createTransaction(Request $request)
             //     'Quantity' => $
             //     'Price'=>
             //     'Subtotal' =>
-
-
-
-
             // ],
 
 

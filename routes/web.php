@@ -32,7 +32,7 @@ Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
 Route::post('/kontak', [KontakController::class, 'store'])->name('kontak.store');
 Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
 
-// Session-based Role Check
+// dashboard admin
 Route::get('/dashboard', function (Request $request) {
     $user = $request->session()->get('user');
     if (!$user || $user['role'] !== 'admin') {
@@ -41,14 +41,34 @@ Route::get('/dashboard', function (Request $request) {
     return app(DashboardController::class)->index();
 })->name('dashboard');
 
+Route::get('/admin/users', [AdminController::class, 'table'])->name('admin.table');
+Route::get('/admin/kontaks', [AdminController::class, 'kontak'])->name('admin.kontak');
+Route::resource('admin' , AdminController::class);
 
 
+// halaman utama user
 Route::get('/Foodvana/home', function (Request $request) {
     if (!$request->session()->has('user')) {
         return redirect('/login')->with('error', 'Silakan login terlebih dahulu.');
     }
     return app(FoodvanaController::class)->home();
 })->name('Foodvana.home');
+
+// Profil
+Route::get('/profil', function (Request $request) {
+    if (!$request->session()->has('user')) return redirect('/login');
+    return app(ProfilController::class)->show();
+})->name('profil.show');
+
+Route::get('/profil/edit', function (Request $request) {
+    if (!$request->session()->has('user')) return redirect('/login');
+    return app(ProfilController::class)->edit();
+})->name('profil.edit');
+
+Route::post('/profil/update', function (Request $request) {
+    if (!$request->session()->has('user')) return redirect('/login');
+    return app(ProfilController::class)->update($request);
+})->name('profil.update');
 
 // Keranjang, Kontak, Menu
 Route::get('/kontak2', [KontakController::class, 'home'])->name('kontak2.home');
@@ -67,40 +87,7 @@ Route::put('/cartitem/{id}', [CartItemController::class, 'update'])->name('carti
 Route::get('/menu2', [MenuController::class, 'home'])->name('menu.home'); 
 
 
-// Profil
-Route::get('/profil', function (Request $request) {
-    if (!$request->session()->has('user')) return redirect('/login');
-    return app(ProfilController::class)->show();
-})->name('profil.show');
-
-Route::get('/profil/edit', function (Request $request) {
-    if (!$request->session()->has('user')) return redirect('/login');
-    return app(ProfilController::class)->edit();
-})->name('profil.edit');
-
-
-Route::post('/profil/update', function (Request $request) {
-    if (!$request->session()->has('user')) return redirect('/login');
-    return app(ProfilController::class)->update($request);
-})->name('profil.update');
-
-
-// // Order
-// Route::get('/order/{id}/edit', function (Request $request, $id) {
-//     if (!$request->session()->has('user')) return redirect('/login');
-//     return app(OrderController::class)->edit($id);
-// })->name('order.edit');
-
-// Route::put('/order/{id}', function (Request $request, $id) {
-//     if (!$request->session()->has('user')) return redirect('/login');
-//     return app(OrderController::class)->update($request, $id);
-// })->name('order.update');
-
-
-Route::get('/admin/users', [AdminController::class, 'table'])->name('admin.table');
-Route::get('/admin/kontaks', [AdminController::class, 'kontak'])->name('admin.kontak');
-Route::resource('admin' , AdminController::class);
-
+//halaman checkout
 Route::post('checkout', function (Request $request) {
     if (!$request->session()->has('user')) return redirect('/login');
     return app(CheckoutController::class)->show();
@@ -115,12 +102,12 @@ Route::post('/checkout.process', [MidtransSnapController::class, 'createTransact
 Route::get('/payment/finish', [MidtransController::class, 'paymentFinish']);
 
 // Route::get('payment.success',[MidtransSnapController::class,'success'])->name(payment.success);
-// Route::post('/midtrans/notification', [MidtransSnapController::class, 'handleNotification']);
+Route::post('/midtrans/notification', [MidtransSnapController::class, 'handleNotification']);
 Route::get('/cancel', [MidtransSnapController::class, 'cancel'])-> name('cancel');
 Route::get('/callback', [MidtransSnapController::class, 'callback'])-> name('callback');
 
 // pesanan
-// Route::get('/pesanan', [PesananController::class, 'index']);
+Route::get('/pesanan', [PesananController::class, 'index']);
 // Route::get('/pesanan.detail', [PesananController::class, 'detail']);
 Route::get('/pesanan/{id}', [PesananController::class, 'show'])->name('pesanan.show');
 Route::get('/pesanan/{id}/cetak', [PesananController::class, 'cetakStruk'])->name('pesanan.cetak');
@@ -129,3 +116,14 @@ Route::get('/test', function (Request $request) {
     return $request->session()->has('user') ? $request->session()->get('user') : 'Belum login';
 });
 
+
+// // Order
+// Route::get('/order/{id}/edit', function (Request $request, $id) {
+//     if (!$request->session()->has('user')) return redirect('/login');
+//     return app(OrderController::class)->edit($id);
+// })->name('order.edit');
+
+// Route::put('/order/{id}', function (Request $request, $id) {
+//     if (!$request->session()->has('user')) return redirect('/login');
+//     return app(OrderController::class)->update($request, $id);
+// })->name('order.update');
