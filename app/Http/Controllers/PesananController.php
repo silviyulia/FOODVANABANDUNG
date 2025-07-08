@@ -28,10 +28,6 @@ public function index(Request $request)
     return view('pesanan.detail', compact('transaksis'));
 }
 
-
-
-
-
     public function show($id)
     {
     // Ambil transaksi beserta detail menu yang dibeli
@@ -64,6 +60,7 @@ public function index(Request $request)
 {
     return $this->hasMany(DetailTransaksi::class, 'id_transaksi');
 }
+
 
 
     // public function pesanan()

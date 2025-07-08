@@ -100,6 +100,8 @@ public function checkout(Request $request)
 
         return back()->with('success', 'Berhasil ditambahkan ke keranjang!');
     }
+
+    
     public function update(Request $request, $id)
 {
     $cartItem = CartItem::findOrFail($id);

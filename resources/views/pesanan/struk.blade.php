@@ -17,7 +17,6 @@
     <p><strong>ID Transaksi:</strong> {{ $transaksi->id }}</p>
     <p><strong>Nomor Struk:</strong> STRK-{{ str_pad($transaksi->id, 6, '0', STR_PAD_LEFT) }}</p>
     <p><strong>Tanggal:</strong> {{ $transaksi->tanggal_transaksi }}</p>
-    <p><strong>Nama:</strong> {{ $transaksi->user->name ?? 'Pelanggan' }}</p>
     <p><strong>No HP:</strong> {{ $transaksi->no_hp }}</p>
     <p><strong>Alamat:</strong> {{ $transaksi->alamat_pengiriman }}</p>
 
@@ -35,8 +34,8 @@
                 <tr>
                     <td>{{ $item->menu->nama ?? '-' }}</td>
                     <td>{{ $item->jumlah }}</td>
-                    <td>Rp {{ number_format($item->harga) }}</td>
-                    <td>Rp {{ number_format($item->subtotal) }}</td>
+                    <td>Rp {{ number_format($item->harga_satuan, 0, ',', '.') }}</td>
+                    <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
                 </tr>
             @endforeach
         </tbody>
@@ -47,6 +46,6 @@
     </p>
 
     <hr>
-    <p style="text-align: center; font-size: 10px;">Terima kasih telah berbelanja di Foodvana 🍽️</p>
+    <p style="text-align: center; font-size: 10px;">Terima kasih telah berbelanja di Foodvana </p>
 </body>
 </html>

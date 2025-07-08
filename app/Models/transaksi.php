@@ -20,7 +20,7 @@ class transaksi extends Model // <--- INHERITANCE: class transaksi mewarisi dari
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user'); // Abstraksi: Detail relasi ditangani oleh Laravel
+        return $this->belongsTo(User::class, 'id_user','username'); // Abstraksi: Detail relasi ditangani oleh Laravel
     }
 
     public function menus()
@@ -29,10 +29,9 @@ class transaksi extends Model // <--- INHERITANCE: class transaksi mewarisi dari
                     ->withPivot('jumlah', 'harga');
     }
 
-
-
    public function detailTransaksi()
 {
     return $this->hasMany(DetailTransaksi::class, 'id_transaksi');
 }
+
 }

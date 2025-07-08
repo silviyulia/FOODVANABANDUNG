@@ -121,16 +121,6 @@ public function createTransaction(Request $request)
     }
 }
 
-            // 'product_details' => [
-            //     'Product ID' => 
-            //     'Product name' =>{{ $item->menu->nama }}
-            //     'Quantity' => $
-            //     'Price'=>
-            //     'Subtotal' =>
-            // ],
-
-
-    // return redirect()-> route('payment.success');
 
     public function handleNotification(Request $request)
 {
@@ -162,6 +152,14 @@ public function createTransaction(Request $request)
     return response()->json(['message' => 'Notification handled']);
     }
 
+
+
+    public function menu()
+    {
+    return $this->belongsTo(Menu::class, 'id_menu');
+    }
+}
+
 //     public function paymentFinish(Request $request)
 // {
 //     // Ambil order_id dari query string Midtrans
@@ -176,11 +174,3 @@ public function createTransaction(Request $request)
 //     // Tampilkan halaman sukses
 //     return view('payment.success', compact('transaksi'));
 // }
-
-
-    public function menu()
-    {
-    return $this->belongsTo(Menu::class, 'id_menu');
-    }
-}
-

@@ -93,24 +93,20 @@ Route::post('checkout', function (Request $request) {
     return app(CheckoutController::class)->show();
 })->name('checkout');
 
-// Route::post('checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout/update', [CheckoutController::class, 'updateCheckout'])->name('checkout.update');
 Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('checkout');
-Route::get('/payment/finish', [CheckoutController::class, 'finish'])->name('payment.finish');
+
 
 Route::post('/checkout.process', [MidtransSnapController::class, 'createTransaction'])->name('checkout.process');
 Route::get('/payment/finish', [MidtransController::class, 'paymentFinish']);
-
-// Route::get('payment.success',[MidtransSnapController::class,'success'])->name(payment.success);
 Route::post('/midtrans/notification', [MidtransSnapController::class, 'handleNotification']);
-Route::get('/cancel', [MidtransSnapController::class, 'cancel'])-> name('cancel');
-Route::get('/callback', [MidtransSnapController::class, 'callback'])-> name('callback');
+
 
 // pesanan
 Route::get('/pesanan', [PesananController::class, 'index']);
-// Route::get('/pesanan.detail', [PesananController::class, 'detail']);
 Route::get('/pesanan/{id}', [PesananController::class, 'show'])->name('pesanan.show');
-Route::get('/pesanan/{id}/cetak', [PesananController::class, 'cetakStruk'])->name('pesanan.cetak');
+Route::get('/pesanan/{id}/cetak-struk', [App\Http\Controllers\PesananController::class, 'cetakStruk'])->name('pesanan.cetak-struk');
+
 // Test session
 Route::get('/test', function (Request $request) {
     return $request->session()->has('user') ? $request->session()->get('user') : 'Belum login';
@@ -127,3 +123,7 @@ Route::get('/test', function (Request $request) {
 //     if (!$request->session()->has('user')) return redirect('/login');
 //     return app(OrderController::class)->update($request, $id);
 // })->name('order.update');
+
+// // Route::get('payment.success',[MidtransSnapController::class,'success'])->name(payment.success);
+// Route::get('/cancel', [MidtransSnapController::class, 'cancel'])-> name('cancel');
+// Route::get('/callback', [MidtransSnapController::class, 'callback'])-> name('callback');

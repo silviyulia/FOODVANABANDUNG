@@ -11,7 +11,6 @@
         </div>
     @endif
 
-
     <h2 class="mb-3" style="color:rgb(195, 133, 10); text-shadow: 1px 1px 2px rgba(255, 255, 255, 1.7);">Keranjang Belanja</h2>
     @foreach($cartItems as $item)
         <div class="card mb-2 p-2" style="background-color:rgb(255, 255, 255); border-radius: 6px;">

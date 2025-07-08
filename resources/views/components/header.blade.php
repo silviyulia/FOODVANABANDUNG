@@ -25,7 +25,7 @@
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg px-4">
+  <nav class="navbar navbar-expand-lg custom-navbar px-4">
     <a class="navbar-brand d-flex align-items-center" href="#">
       <img src="{{ asset('img/logo fvb.png') }}" alt="Logo" width="30" height="30" class="rounded-circle me-2">
       FoodVana Bandung

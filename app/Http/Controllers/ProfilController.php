@@ -40,7 +40,7 @@ class ProfilController extends Controller
         'username' => 'required|string|max:100',
         'email' => 'required|email',
         'alamat' => 'nullable|string|max:255',
-        'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'profile_photo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         'no_hp' => 'nullable|string|max:15',
     ]);
 

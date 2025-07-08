@@ -42,7 +42,7 @@ public function updateCheckout(Request $request)
 public function showCheckoutPage(Request $request)
 {
 
-    $user =session('user'); // Atau ambil dari session kalau kamu tidak pakai auth()
+    $user =session('user'); // Ambil data menggunakan session
     $cartItems = CartItem::where('id_user', $user['id'])->get();    
     
     return view('Foodvana.checkout', compact('cartItems', 'user'));

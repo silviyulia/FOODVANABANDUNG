@@ -107,7 +107,6 @@
                             <option value="ovo">OVO</option>
                             <option value="gopay">Gopay</option>
                             <option value="dana">DANA</option>
-                            <option value="cash">Cash on Delivery</option>
                         </select>
                     </div>
 

@@ -4,66 +4,72 @@
 
 @section('content')
 
-    
-    <div class="text-right">
-        <a href="{{ url('/Foodvana/home') }}" class="inline-flex items-center px-2 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition">
-           <button type="button" class="btn btn-warning btn-lg px-2">
-            <i class="fas fa-arrow-left mr-2"></i> back to home</button>
+<div class="container-fluid px-5 py-8">
+    <div class="text-start mb-4">
+        <a href="{{ url('/Foodvana/home') }}" class="btn btn-warning btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>
         </a>
     </div>
-    <div class="max-w-5xl mx-auto px-4 py-8">
+
+
     @foreach ($transaksis as $transaksi)
-            <div class="bg-white border border-gray-300 shadow-sm rounded-md p-3 mb-4 max-w-3xl mx-auto text-sm">            <h4 class="text-2xl font-semibold text-gray-800 mb-4">
-                <i class="fas fa-receipt text-blue-600 mr-2"></i> Detail Transaksi #{{ $transaksi->id }}
-            </h4>
+    <div class="row mb-5">
+        <div class="col-lg-15">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <div class="row g-4">
+                        <!-- 🧾 Kolom Kiri: Detail Transaksi -->
+                        <div class="col-md-6">
+                            <h5 class="card-title mb-3">
+                                <i class="fas fa-receipt text-primary me-2"></i>Transaksi #{{ $transaksi->id }}
+                            </h5>
+                            <ul class="list-unstyled small">
+                                <li><strong>Total Harga:</strong> Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</li>
+                                <li><strong>Status:</strong>
+                                    <span class="badge bg-success text-capitalize">{{ $transaksi->status }}</span>
+                                </li>
+                                <li><strong>No HP:</strong> {{ $transaksi->no_hp }}</li>
+                                <li><strong>Alamat:</strong> {{ $transaksi->alamat_pengiriman }}</li>
+                                <li><strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->translatedFormat('d F Y, H:i') }}</li>
+                                <li><strong>Pembayaran:</strong> {{ ucfirst(str_replace('_', ' ', $transaksi->metode_pembayaran)) }}</li>
+                            </ul>
+                        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700 text-sm">
-                <div>
-                    <p><span class="font-semibold">Total Harga:</span> Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</p>
-                    <p><span class="font-semibold">Status:</span> 
-                        <span class="inline-block px-2 py-1 text-xs font-medium rounded bg-green-100 text-green-800 capitalize">
-                            {{ $transaksi->status }}
-                        </span>
-                    </p>
-                    <p><span class="font-semibold">No HP:</span> {{ $transaksi->no_hp }}</p>
-                </div>
-                <div>
-                    <p><span class="font-semibold">Alamat Pengiriman:</span> {{ $transaksi->alamat_pengiriman }}</p>
-                    <p><span class="font-semibold">Tanggal Transaksi:</span> {{ $transaksi->tanggal_transaksi }}</p>
-                    <p><span class="font-semibold">Metode Pembayaran:</span> {{ ucfirst(str_replace('_', ' ', $transaksi->metode_pembayaran)) }}</p>
-                </div>
-            </div>
-
-            <div class="mt-6">
-                <h3 class="text-lg font-medium text-gray-700 mb-3">🧾 Daftar Menu</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-xs text-left text-gray-600 border border-gray-200 rounded-md shadow-sm">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
-                            <tr>
-                                <th class="px-4 py-2">Menu</th>
-                                <th class="px-4 py-2">Jumlah</th>
-                                <th class="px-4 py-2">Harga</th>
-                                <th class="px-4 py-2">Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($transaksi->detailTransaksi as $item)
-                                <tr class="bg-white border-b hover:bg-gray-50">
-                                    <td class="px-4 py-2 font-medium text-gray-900">
-                                        {{ $item->menu->nama ?? 'Menu tidak ditemukan' }}
-                                    </td>
-                                    <td class="px-4 py-2">{{ $item->jumlah }}</td>
-                                    <td class="px-4 py-2">Rp {{ number_format($item->harga_satuan, 0, ',', '.') }}</td>
-                                    <td class="px-4 py-2">Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                        <!-- 🍽️ Kolom Kanan: Daftar Menu -->
+                        <div class="col-sm-6">
+                            <h6 class="fw-semibold mb-3">🍽️ Daftar Menu</h6>
+                            <div class="table-responsive">
+                                <table class="table table-sm table-bordered align-middle">
+                                    <thead class="table-light text-center">
+                                        <tr>
+                                            <th>Menu</th>
+                                            <th>Jumlah</th>
+                                            <th>Harga</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($transaksi->detailTransaksi as $item)
+                                        <tr>
+                                            <td>{{ $item->menu->nama ?? 'Menu tidak ditemukan' }}</td>
+                                            <td class="text-center">{{ $item->jumlah }}</td>
+                                            <td>Rp {{ number_format($item->harga_satuan, 0, ',', '.') }}</td>
+                                            <td>Rp {{ number_format($item->subtotal, 0, ',', '.') }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div> <!-- row -->
+                    <a href="{{ route('pesanan.cetak-struk', $transaksi->id) }}" class="btn btn-outline-primary">
+                        <i class="fas fa-download me-1"></i> Unduh Struk
+                    </a>
+                </div> <!-- card-body -->
+            </div> <!-- card -->
         </div>
+    </div>
     @endforeach
 
-    
 </div>
 @endsection

@@ -25,7 +25,8 @@
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-lg px-4">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg custom-navbar px-4">
     <a class="navbar-brand d-flex align-items-center" href="#">
       <img src="{{ asset('img/logo fvb.png') }}" alt="Logo" width="30" height="30" class="rounded-circle me-2">
       FoodVana Bandung
@@ -44,7 +45,7 @@
     <ul class="navbar-nav me-3">
       <li class="nav-item position-relative">
         <a class="nav-link" href="{{ url('/cart_items') }}">
-          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+          <svg class="w-6 h-6 text-white" aria-hidden="true"
                xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -72,11 +73,7 @@
         </a>
       </li>
     </ul>
-
-
   </nav>
-
-
 
   <!-- Alert -->
   @if (session('success'))
@@ -93,5 +90,5 @@
     feather.replace();
   </script>
 </body>
-
 </html>
+
