@@ -34,9 +34,11 @@ public function index(Request $request)
         $transaksis = Transaksi::with('detailTransaksi.menu')->findOrFail($id);
 
     // validasi agar hanya user terkait yang bisa akses
-        if ($transaksi->id_user !== auth()->id()) {
-            abort(403, 'Akses ditolak');
-        }
+      $user = session('user');
+
+    if (!$user || $transaksis->id_user != $user['id']) {
+        abort(403, 'Akses ditolak');
+    }
 
     // Tampilkan ke view 'pesanan/detail.blade.php'
         return view('pesanan.detail', compact('transaksis'));

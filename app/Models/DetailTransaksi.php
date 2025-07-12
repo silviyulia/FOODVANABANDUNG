@@ -26,4 +26,9 @@ class DetailTransaksi extends Model
     {
         return $this->hasMany(DetailTransaksi::class, 'id_transaksi');
     }
+
+    public function review()
+    {
+        return $this->hasOne(Review::class, 'id_detail_transaksi');
+    }
 }

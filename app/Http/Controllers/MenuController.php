@@ -13,14 +13,28 @@ class MenuController extends Controller
     public function index()
     {
          $menus = Menu::all();
+        //  untuk mengurutkan berdasarkan rating
+        //  $menus = Menu::orderByDesc('rating')->take(3)->get(); 
+
     return view('menu', compact('menus'));
     }
 
     public function home()
     {
         $menus = Menu::all();
+        //  untuk mengurutkan berdasarkan rating
+        $menus = Menu::orderByDesc('rating')->get(); 
+
         return view('Foodvana.menu', compact('menus'));
     }
+
+   public function detail($id)
+{
+    $menu = Menu::with('reviews.user')->findOrFail($id);
+    return view('Foodvana.detailmenu', compact('menu'));
+}
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -54,16 +68,16 @@ class MenuController extends Controller
             }
                 return view('dashboard.menu', compact('id', 'nama', 'deskripsi', 'harga', 'gambar', 'rating'));
         
-      
     }
+    
     public function search(Request $request)
     {
-        $query = $request->input('query');
+       
         $menus = menu::where('nama', 'LIKE', "%{$query}%")
             ->orWhere('deskripsi', 'LIKE', "%{$query}%")
             ->get();
 
-        return view('Foodvana.menu2', compact('menus'));
+        return view('Foodvana.menu', compact('menus'));
     }
 
     /**

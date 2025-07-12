@@ -7,26 +7,42 @@
 @endpush
 
 @section('content')
-<main class="contact-section container">
-  <h2>Kontak Kami</h2>
-  <div class="contact-container">
-      <p>Kami selalu senang mendengar dari Anda! Apakah Anda memiliki pertanyaan, saran, kritik, atau ingin memberikan masukan mengenai layanan dan menu FoodVana Bandung? Jangan ragu untuk menghubungi kami melalui formulir di bawah ini. Tim kami akan segera merespons pesan Anda.</p>
+<main class="container my-2">
+    <div class="card shadow-sm border-0 rounded-4 mx-auto" style="max-width: 640px;">
+        <div class="card-body p-4">
+            <h4 class="text-center fw-bold mb-3">
+                <i class="bi bi-envelope-paper-fill me-2"></i> Kontak Kami
+            </h4>
+            <p class="text-muted text-center mb-4">
+               Kami selalu senang mendengar dari Anda! Apakah Anda memiliki pertanyaan, saran, kritik, atau ingin memberikan masukan mengenai layanan dan menu FoodVana Bandung? Jangan ragu untuk menghubungi kami melalui formulir di bawah ini. Tim kami akan segera merespons pesan Anda.
+            </p>
 
-    <form class="contact-form" method="POST" action="{{ route('kontak.store') }}">
-      @csrf
-      <label>Nama :</label>
-      <input type="text" name="nama" placeholder="Masukkan nama..." required>
+            <form method="POST" action="{{ route('kontak.store') }}">
+                @csrf
 
-      <label>Email :</label>
-      <input type="email" name="email" placeholder="Masukkan email..." required>
+                <div class="mb-3">
+                    <label for="nama" class="form-label">Nama</label>
+                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama Anda" required>
+                </div>
 
-      <label>Kirim pesan :</label>
-      <textarea name="pesan" placeholder="Ketikkan pesan..." required></textarea>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan alamat email" required>
+                </div>
 
-      <button type="submit">Kirim</button>
-    </form>
+                <div class="mb-3">
+                    <label for="pesan" class="form-label">Pesan Anda</label>
+                    <textarea class="form-control" name="pesan" id="pesan" rows="4" placeholder="Tulis pesan Anda di sini" required></textarea>
+                </div>
 
-  </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-send-fill me-1"></i> Kirim Pesan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </main>
 
 

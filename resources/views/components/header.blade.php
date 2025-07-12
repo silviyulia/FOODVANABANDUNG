@@ -45,7 +45,7 @@
       @endif
     </div>
 
-    <form class="d-flex" role="search">
+   <form class="d-flex" role="search" action="{{ url('/menu') }}" method="GET">
       <input class="form-control form-control-sm" type="search" placeholder="Search in site" />
     </form>
   </nav>

@@ -12,18 +12,26 @@
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-center">{{ $menu->nama }}</h5>
                         <p class="card-text text-muted mb-2 text-center">{{ $menu->deskripsi }}</p>
-                         <div class="mb-2 text-center">
+                         <div class="mt-auto mb-2 d-flex justify-content-center align-items-center">
                             @for ($i = 1; $i <= 5; $i++)
-                                <span class="text-warning ">{!! $i <= $menu->rating ? '&#9733;' : '&#9734;' !!}</span>
+                                <span class="text-warning">{!! $i <= $menu->rating ? '&#9733;' : '&#9734;' !!}</span>
                             @endfor
-                            <span class="badge bg-primary ms-2">{{ number_format($menu->rating, 1) }}</span>
+                            <span class="badge bg-primary ms-2">
+                                {{ $menu->rating !== null ? number_format($menu->rating, 1) : '0.0' }}
+                            </span>                        
                         </div>
+                        
                             <div class="mt-auto d-flex justify-content-between align-items-center">
                                 <span class="fw-bold text-success fs-5">Rp{{ number_format($menu->harga, 0, ',', '.') }}</span>
                                 <form action="{{ route('cartitem.store') }}" method="POST" class="d-inline">
                                     @csrf
                                     <input type="hidden" name="id_menu" value="{{ $menu->id }}">
                                     <input type="hidden" name="jumlah" value="1">
+
+                                    <a href="{{ route('menu.detail', $menu->id) }}" class="btn btn-sm btn-outline-primary mt-2">
+                                        Lihat Detail
+                                    </a>
+                                    
                                     <button type="submit" class="btn btn-sm btn-warning">
                                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                             viewBox="0 0 24 24" aria-hidden="true">

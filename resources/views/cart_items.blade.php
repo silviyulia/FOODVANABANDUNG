@@ -11,7 +11,7 @@
         </div>
     @endif
 
-    <h2 class="mb-3" style="color:rgb(195, 133, 10); text-shadow: 1px 1px 2px rgba(255, 255, 255, 1.7);">Keranjang Belanja</h2>
+    <h2 class="mb-3 fw-bold" style="color:rgb(195, 133, 10); text-shadow: 1px 1px 2px rgba(255, 255, 255, 1.7);">Keranjang Belanja</h2>
     @foreach($cartItems as $item)
         <div class="card mb-2 p-2" style="background-color:rgb(255, 255, 255); border-radius: 6px;">
             <div class="d-flex justify-content-between align-items-center">
@@ -74,7 +74,7 @@
     @endforeach
 
     <div class="d-flex justify-content-end ">
-        <h4 style="color:rgb(195, 133, 10); text-shadow: 1px 1px 2px rgba(255, 255, 255, 1.7); ">Total: 
+        <h4 class="mb-3 fw-bold" style="color:rgb(195, 133, 10); text-shadow: 1px 1px 2px rgba(255, 255, 255, 1.7); ">Total: 
             <span class="text-success" id="grand-total" >
                 Rp{{ number_format($cartItems->sum(function($item) { return $item->menu->harga * $item->jumlah; }), 0, ',', '.') }}
             </span>

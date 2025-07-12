@@ -4,16 +4,22 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Midtrans\Config;
 use Midtrans\Snap;
+use Midtrans\Notification;
 use App\Models\Transaksi;
 use App\Models\CartItem;
 use App\Models\DetailTransaksi;
+use App\Models\User;
+
+
 
 class MidtransSnapController extends Controller
 {
     public function __construct()
     {
+        // Konfigurasi Midtrans
         Config::$serverKey = config('services.midtrans.server_key');
         Config::$isProduction = config('services.midtrans.is_production');
         Config::$isSanitized = true;
@@ -28,11 +34,7 @@ class MidtransSnapController extends Controller
 
 public function createTransaction(Request $request)
 {
-    // Konfigurasi Midtrans
-    Config::$serverKey = config('services.midtrans.server_key');
-    Config::$isProduction = false;
-    Config::$isSanitized = true;
-    Config::$is3ds = true;
+   
 
     // Ambil user dari session
     $sessionUser = session('user');
@@ -74,7 +76,7 @@ public function createTransaction(Request $request)
         'alamat_pengiriman' => $address,
         'no_hp' => $phone,
         'metode_pembayaran' => $request->input('payment_method') ?? 'midtrans',
-        'status' => 'success',
+        'status' => 'pending',
         'tanggal_transaksi' => now(),
     ]);
 
@@ -97,8 +99,10 @@ public function createTransaction(Request $request)
     // Hapus cart setelah berhasil simpan transaksi
     CartItem::where('id_user', $userId)->delete();
 
+    
+    $orderId = 'ORDER-' . $transaksi->id . '-' . now()->timestamp;
+        $transaksi->save();
     // Buat parameter untuk Midtrans Snap
-    $orderId = 'ORDER-' . $transaksi->id;
     $params = [
         'transaction_details' => [
             'order_id' => $orderId,

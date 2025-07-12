@@ -4,27 +4,29 @@
 @section('title', 'Beranda')
 
 @section('content')
-<div class=align-items-center text-center">
+<div class="align-items-center text-center">
 <section class="welcome-section container">
     <div class="row align-items-center">
       <div class="col-md-6 welcome-text">
       <h1>Welcome to FoodVana Bandung,</h1>
         <p class="lead">Nikmati kuliner terbaik di kota Bandung</p>
-        <!-- <a href="/menu2" class="btn btn-success mt-3">Lihat Menu</a> -->
+            <a href="#rekomendasi-section" class="btn btn-success mt-3">Rekomendasi</a>
       </div>
       <div class="col-md-5 text-center">
         <img src="{{ asset('img/picture.jpg') }}" alt="Image" class="image"/>
       </div>
   </section>
 
-  <section class="menu-section container">
+
+<section class="menu-section container bg-white" id="rekomendasi-section">    
     <div class="row align-items-center"> 
-    <h1 class="text-center mb-4">Menu Kami</h1>
-  </div>
+        <h1 class="text-center mb-4">rekomendasi kuliner</h1>
+            <p class="text-center mb-4">Berikut adalah beberapa menu yang kami rekomendasikan untuk Anda</p>
+    </div>
     <div class="row g-3">
         @foreach ($menus as $menu)
-            <div class="col-12 col-sm-6 col-md-4">
-                <div class="card h-100  shadow-sm">
+            <div class="col-12 col-sm-6 col-md-4 mb-4">
+                <div class="card h-100  shadow-sm ">
                     <img class="card-img-left" style="height:180px; object-fit:cover; border-radius:12px 12px 0 0;" src="{{ asset('storage/' . $menu->gambar) }}" alt="{{ $menu->nama }}">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-center">{{ $menu->nama }}</h5>
@@ -55,7 +57,7 @@
             </div>
         @endforeach
     </div>
-
+</div>
   </section>
   </div>
 @endsection

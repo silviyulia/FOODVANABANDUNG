@@ -19,9 +19,9 @@ class FoodvanaController extends Controller
     //halaman setelah login */
     public function home()
     {
-        $user = auth()->user();
-        $menus = menu :: all(); // Mendapatkan pengguna yang sedang login
-        return view('Foodvana.home', compact('user','menus'));
+    
+        $menus = Menu::orderByDesc('rating')->take(3)->get();  // Mendapatkan pengguna yang sedang login
+        return view('Foodvana.home', compact('menus'));
 
     } 
     public function search(Request $request)

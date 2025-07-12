@@ -5,7 +5,7 @@
 
 @section('content')
 
-<div class="container py-5">
+<div class="container py-3">
     <div class="row g-3">
         @foreach ($menus as $menu)
             <div class="col-12 col-sm-6 col-md-4">
@@ -14,7 +14,7 @@
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title text-center">{{ $menu->nama }}</h5>
                         <p class="card-text text-muted mb-2 text-center">{{ $menu->deskripsi }}</p>
-                        <div class="mb-2 text-center">
+                        <div class="mt-auto mb-2 d-flex justify-content-center align-items-center">
                             @for ($i = 1; $i <= 5; $i++)
                                 <span class="text-warning">{!! $i <= $menu->rating ? '&#9733;' : '&#9734;' !!}</span>
                             @endfor

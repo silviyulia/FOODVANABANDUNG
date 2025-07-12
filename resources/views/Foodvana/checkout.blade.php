@@ -6,36 +6,34 @@
 <div class="container mt-4">
     <div class="col-md-10 offset-md-1">
 
-        {{-- ==== KERANJANG ==== --}}
+        {{-- === KERANJANG === --}}
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
                 <h4 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Pesanan Anda</h4>
-                <a href="{{ url('/cart_items') }}" class="btn btn-warning btn-sm" id="cart_items">edit</a>
-
+                <a href="{{ url('/cart_items') }}" class="btn btn-warning btn-sm">Edit</a>
             </div>
             <div class="card-body bg-light">
                 <ul class="list-group">
                     @foreach($cartItems as $item)
-                        <li class="list-group-item d-flex align-items-center">
-                            <img src="{{ asset('storage/' . $item->menu->gambar) }}" width="70" height="70" class="rounded" style="object-fit: cover;">
-                            <div class="ms-3 w-100">
-                                <h6 class="mb-1">{{ $item->menu->nama }}</h6>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span>Jumlah: {{ $item->jumlah }}</span>
-                                    <strong>Rp {{ number_format($item->menu->harga * $item->jumlah, 0, ',', '.') }}</strong>
-                                </div>
+                    <li class="list-group-item d-flex align-items-center">
+                        <img src="{{ asset('storage/' . $item->menu->gambar) }}" width="70" height="70" class="rounded" style="object-fit: cover;">
+                        <div class="ms-3 w-100">
+                            <h6 class="mb-1">{{ $item->menu->nama }}</h6>
+                            <div class="d-flex justify-content-between">
+                                <span>Jumlah: {{ $item->jumlah }}</span>
+                                <strong>Rp{{ number_format($item->menu->harga * $item->jumlah, 0, ',', '.') }}</strong>
                             </div>
-                        </li>
+                        </div>
+                    </li>
                     @endforeach
                 </ul>
                 <div class="mt-3">
                     <h5>Total Produk: {{ $cartItems->sum('jumlah') }} item dari {{ $cartItems->count() }} menu</h5>
-
                 </div>
             </div>
         </div>
 
-        {{-- ==== INFORMASI PEMESANAN ==== --}}
+        {{-- === INFORMASI PEMESANAN === --}}
         <div class="card shadow-sm mb-4">
             <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
                 <h5 class="mb-0"><i class="fas fa-user me-2"></i>Informasi Pemesanan</h5>
@@ -49,7 +47,7 @@
             </div>
         </div>
 
-        {{-- ==== MODAL EDIT INFORMASI ==== --}}
+        {{-- === MODAL EDIT INFORMASI === --}}
         <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <form method="POST" action="{{ route('checkout.update') }}">
@@ -85,10 +83,8 @@
             </div>
         </div>
 
-        {{-- ==== METODE PEMBAYARAN ==== --}}
-        @php
-            $totalPembayaran = $cartItems->sum(fn($item) => $item->menu->harga * $item->jumlah);
-        @endphp
+        {{-- === METODE PEMBAYARAN === --}}
+        @php $totalPembayaran = $cartItems->sum(fn($item) => $item->menu->harga * $item->jumlah); @endphp
 
         <form action="{{ route('checkout.process') }}" method="POST">
             @csrf
@@ -111,14 +107,9 @@
                     </div>
 
                     <div class="mb-3">
-
-                        @php
-                            $totalPembayaran = $cartItems->sum(fn($item) => $item->menu->harga * $item->jumlah);
-                        @endphp
-
                         <label class="form-label">Jumlah Pembayaran</label>
                         <input type="hidden" name="total" value="{{ $totalPembayaran }}">
-                        <input type="text" class="form-control" value="Rp{{ number_format($cartItems->sum(function($item) { return $item->menu->harga * $item->jumlah; }), 0, ',', '.') }}" readonly>
+                        <input type="text" class="form-control" value="Rp{{ number_format($totalPembayaran, 0, ',', '.') }}" readonly>
                     </div>
 
                     <div class="mb-3">
@@ -134,30 +125,26 @@
                 </div>
             </div>
 
+            {{-- === TOMBOL AKSI === --}}
             <div class="text-center mb-4">
-                <p>Pastikan semua data sudah benar sebelum melanjutkan.</p>
-                <button type="submit" id="pay-button" class="btn btn-success btn-lg px-5">
+                <a href="{{ url('/cart_items') }}" class="btn btn-danger px-5 me-2">
+                    <i class="fas fa-exclamation-circle"></i> batalkan
+                </a>    
+                <button type="submit" id="pay-button" class="btn btn-success px-5">
                     <i class="fas fa-check-circle me-2"></i>Konfirmasi Pembayaran
                 </button>
             </div>
         </form>
 
-        {{-- ==== NOTIFIKASI ==== --}}
+        {{-- === NOTIFIKASI === --}}
         @if(session('success'))
-            <div class="alert alert-success text-center mt-3">
-                {{ session('success') }}
-            </div>
+        <div class="alert alert-success text-center mt-3">{{ session('success') }}</div>
         @elseif(session('error'))
-            <div class="alert alert-danger text-center mt-3">
-                {{ session('error') }}
-            </div>
+        <div class="alert alert-danger text-center mt-3">{{ session('error') }}</div>
         @endif
-
     </div>
 </div>
 
-{{-- Scripts --}}
+{{-- Bootstrap JS --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
 @endsection

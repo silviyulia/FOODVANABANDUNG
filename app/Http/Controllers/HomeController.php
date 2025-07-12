@@ -9,7 +9,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $menus = Menu::all();
+        $menus = Menu::orderByDesc('rating')->take(3)->get(); 
         return view('/Fooodvana/home', compact ('menus'));
     }
 }

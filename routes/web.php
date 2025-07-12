@@ -18,6 +18,7 @@ use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\MidtransSnapController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\ReviewController;
 
 // Login & Register
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -41,10 +42,12 @@ Route::get('/dashboard', function (Request $request) {
     return app(DashboardController::class)->index();
 })->name('dashboard');
 
+
 Route::get('/admin/users', [AdminController::class, 'table'])->name('admin.table');
 Route::get('/admin/kontaks', [AdminController::class, 'kontak'])->name('admin.kontak');
+Route::get('/admin/pesanan', [AdminController::class, 'pesanan'])->name('admin.pesanan');
+Route::post('/admin/pesanan/{id}/update-status', [AdminController::class, 'updateStatus'])->name('admin.pesanan.updateStatus');
 Route::resource('admin' , AdminController::class);
-
 
 // halaman utama user
 Route::get('/Foodvana/home', function (Request $request) {
@@ -70,21 +73,25 @@ Route::post('/profil/update', function (Request $request) {
     return app(ProfilController::class)->update($request);
 })->name('profil.update');
 
-// Keranjang, Kontak, Menu
+// Kontak
 Route::get('/kontak2', [KontakController::class, 'home'])->name('kontak2.home');
 Route::resource('kuliner', KulinerController::class);
+// CartItem
 
 Route::get('/cart_items', function (Request $request) {
     if (!$request->session()->has('user')) return redirect('/login');
     return app(CartItemController::class)->index();
 })->name('cartitem.index');
-
 Route::post('/cart_items', [CartItemController::class, 'store'])->name('cartitem.store');
 Route::delete('/cart_items/{id}', [CartItemController::class, 'destroy'])->name('cartitem.destroy');
 Route::post('/cart_items/checkout', [CartItemController::class, 'checkout'])->name('cartitem.checkout');
 Route::put('/cartitem/{id}', [CartItemController::class, 'update'])->name('cartitem.update');
 
+
+// Menu
 Route::get('/menu2', [MenuController::class, 'home'])->name('menu.home'); 
+Route::get('/menu/{id}', [MenuController::class, 'detail'])->name('menu.detail');
+Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search');
 
 
 //halaman checkout
@@ -92,20 +99,22 @@ Route::post('checkout', function (Request $request) {
     if (!$request->session()->has('user')) return redirect('/login');
     return app(CheckoutController::class)->show();
 })->name('checkout');
-
 Route::post('/checkout/update', [CheckoutController::class, 'updateCheckout'])->name('checkout.update');
 Route::get('/checkout', [CheckoutController::class, 'showCheckoutPage'])->name('checkout');
 
-
+// midtrans
 Route::post('/checkout.process', [MidtransSnapController::class, 'createTransaction'])->name('checkout.process');
-Route::get('/payment/finish', [MidtransController::class, 'paymentFinish']);
 Route::post('/midtrans/notification', [MidtransSnapController::class, 'handleNotification']);
 
 
 // pesanan
-Route::get('/pesanan', [PesananController::class, 'index']);
+Route::get('/pesanan', [PesananController::class, 'index'])->name('pesanan.index');
 Route::get('/pesanan/{id}', [PesananController::class, 'show'])->name('pesanan.show');
 Route::get('/pesanan/{id}/cetak-struk', [App\Http\Controllers\PesananController::class, 'cetakStruk'])->name('pesanan.cetak-struk');
+
+//review
+Route::get('/pesanan/{id}/review', [ReviewController::class, 'form'])->name('pesanan.review');
+Route::post('/pesanan/{id}/review', [ReviewController::class, 'store'])->name('review.store');
 
 // Test session
 Route::get('/test', function (Request $request) {

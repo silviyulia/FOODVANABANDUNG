@@ -3,36 +3,42 @@
 @section('title', 'Profil - FoodVana Bandung')
 
 @section('content')
-<div class="container mt-5 bg-light rounded p-2 shadow-sm">
+<div class="container mt-5">
     @if(session('user'))
-    @php
-        $user = session('user');
-    @endphp
-    <div class="row align-items-center">
-        <!-- Foto Profil -->
-        <div class="col-md-4 text-center mb-4 mb-md-0">
-            <img src="{{ !empty($user['profile_photo']) ? asset($user['profile_photo']) : asset('img/gprofile.jpg') }}" 
-                 class="rounded-circle border border-secondary" width="170" height="170" alt="Foto Profil">
-        </div>
+        @php $user = session('user'); @endphp
+        <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
+            <div class="row g-4 align-items-center">
+                <!-- Foto Profil -->
+                <div class="col-md-4 text-center">
+                    <img src="{{ !empty($user['profile_photo']) ? asset($user['profile_photo']) : asset('img/gprofile.jpg') }}"
+                         class="img-fluid rounded-circle border border-3 border-primary shadow-sm"
+                         width="180" height="180" alt="Foto Profil">
+                    <h5 class="mt-3 fw-semibold">{{ $user['username'] ?? $user['name'] }}</h5>
+                    <!-- <span class="badge bg-secondary">Pengguna Aktif</span> -->
+                </div>
 
-       
-        <!-- Info Pengguna -->
-        <div class="col-md-8">
-            
-            <h3><strong>Nama:</strong> {{ $user['username'] ?? $user['name'] }}</h3>
-            <p class="text-muted mb-1"><strong>Email:</strong> {{ $user['email'] }}</p>
-            <p><strong>Alamat:</strong> {{ $user['alamat'] ?? '-' }}</p>
-            <p><strong>No. HP:</strong> {{ $user['no_hp'] ?? '-' }}</p>
-            <div class="mt-3 text-end">
-                <a href="{{ route('profil.edit') }}" class="btn btn-secondary">Edit Profil</a>
+                <!-- Info Pengguna -->
+                <div class="col-md-8">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Email:</strong> {{ $user['email'] }}</li>
+                        <li class="list-group-item"><strong>Alamat:</strong> {{ $user['alamat'] ?? '-' }}</li>
+                        <li class="list-group-item"><strong>No. HP:</strong> {{ $user['no_hp'] ?? '-' }}</li>
+                    </ul>
+                    <div class="mt-4 d-flex justify-content-end gap-2">
+                        <a href="{{ route('profil.edit') }}" class="btn btn-outline-primary">
+                            <i class="bi bi-pencil-square"></i> Edit Profil
+                        </a>
+                        <a href="{{ route('logout') }}" class="btn btn-danger">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="mt-2 text-end">
-                <a href="{{ route('logout') }}" class="btn btn-primary">logout</a>    
         </div>
-        
-    </div>
     @else
-    <div class="alert alert-danger text-center mt-4">Data user tidak ditemukan. Silakan login ulang.</div>
+        <div class="alert alert-warning text-center">
+            <i class="bi bi-exclamation-triangle-fill"></i> Data user tidak ditemukan. Silakan login ulang.
+        </div>
     @endif
 </div>
 <!-- <div class="mt-2 text-center">
