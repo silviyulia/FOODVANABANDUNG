@@ -20,15 +20,10 @@
             <form method="POST" action="{{ route('kontak.store') }}">
                 @csrf
 
-                <div class="mb-3">
-                    <label for="nama" class="form-label">Nama</label>
-                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama Anda" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan alamat email" required>
-                </div>
+                @if(session()->has('user'))
+                <input type="hidden" name="nama" value="{{ session('user')['username'] ?? '' }}">
+                <input type="hidden" name="email" value="{{ session('user')['email'] ?? '' }}">
+                @endif
 
                 <div class="mb-3">
                     <label for="pesan" class="form-label">Pesan Anda</label>

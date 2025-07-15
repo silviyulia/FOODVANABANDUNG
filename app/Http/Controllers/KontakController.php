@@ -20,25 +20,29 @@ class KontakController extends Controller
     }
 
     
-    public function store(Request $request)
-    {
-        // Validasi input
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'pesan' => 'required|string',
-        ]);
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'nama' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'pesan' => 'required|string',
+    ]);
 
-        try {
-            // Simpan ke database
-            \App\Models\Kontak::create($validated);
+    $userSession = session('user');
 
-            // Beri pesan sukses
-            return redirect()->back()->with('success', 'Pesan Anda berhasil dikirim!');
-        } catch (\Exception $e) {
-            // Jika gagal
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengirim pesan.');
-        }
+    $data = [
+        'nama' => $userSession['username'] ?? $validated['nama'],
+        'email' => $userSession['email'] ?? $validated['email'],
+        'pesan' => $validated['pesan'],
+    ];
+
+    try {
+        \App\Models\Kontak::create($data);
+
+        return redirect()->back()->with('success', 'Pesan Anda berhasil dikirim!');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat mengirim pesan.');
+    }
 }
 
 }

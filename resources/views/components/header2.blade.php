@@ -6,7 +6,7 @@
   <title>FoodVana Bandung</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
- 
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css">
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
   <link rel="stylesheet" href="{{ asset('style/style.css') }}">
@@ -61,9 +61,12 @@
     </ul>
 
     <!-- Search -->
-    <form class="d-flex" role="search" action="{{ url('/menu2') }}" method="GET">
-      <input class="form-control form-control-sm" type="search" placeholder="Search in site" />
-    </form>
+  <form class="d-flex" role="search" action="{{ route('menu.search') }}" method="GET">
+    <input class="form-control form-control-sm" type="search" name="query" placeholder="Search in site" />
+    <button class="btn btn-sm btn-secondary ms-2" type="submit">
+      <i class="bi bi-search"></i>
+    </button>
+  </form>
 
     <!-- Profil -->
     <ul class="navbar-nav ms-3">

@@ -22,12 +22,12 @@
 
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama Anda" required>
+                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama Anda" value="{{ session('user')['username'] ?? '' }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan alamat email" required>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan alamat email" value="{{ session('user')['email'] ?? '' }}" required>
                 </div>
 
                 <div class="mb-3">

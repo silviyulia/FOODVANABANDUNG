@@ -3,28 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Models\Kontak;
 use App\Models\User;
 use App\Models\Menu;
+use App\Models\Transaksi;
+use App\Models\Review;
 
 
 class DashboardController extends Controller
 {
    
 
-    public function index()
-    {
-        $kontaks = \App\Models\Kontak::orderBy('created_at', 'desc')->paginate(10);
-        $users = User::orderBy('created_at', 'desc')->paginate(10);
-        $menus = menu::all();
-        return view('dashboard', compact('kontaks', 'users', 'menus'),[
-           'userCount' => User::count(),
-           'kontakCount' => Kontak::count(),
-           'menuCount' => Menu::count()
+public function index()
+{
+    $kontaks = \App\Models\Kontak::orderBy('created_at', 'desc')->paginate(10);
+    $users = User::orderBy('created_at', 'desc')->paginate(10);
+    $menus = Menu::all(); // Jangan lupa huruf besar pada 'Menu'
 
-        ]);  
-        
-    }
+    
+
+    return view('dashboard', array_merge(
+        compact('kontaks', 'users', 'menus'),
+        [
+            'userCount' => User::count(),
+            'kontakCount' => Kontak::count(),
+            'menuCount' => Menu::count(),
+            'transaksiCount' => Transaksi::count(),
+            'reviewCount' => Review::count(),
+            // Ringkasan transaksi
+        'todayOrders' => Transaksi::whereDate('created_at', Carbon::today())->count(),
+        'monthlyOrders' => Transaksi::whereMonth('created_at', Carbon::now()->month)->count(),
+        'yearlyOrders' => Transaksi::whereYear('created_at', Carbon::now()->year)->count()
+
+
+        ]
+    ));
+}
   public function profile()
     {
        $sessionUser = session('user');

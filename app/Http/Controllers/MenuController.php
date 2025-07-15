@@ -10,14 +10,16 @@ class MenuController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-         $menus = Menu::all();
-        //  untuk mengurutkan berdasarkan rating
-        //  $menus = Menu::orderByDesc('rating')->take(3)->get(); 
+public function index(Request $request)
+{
+    $keyword = $request->input('query');
+    
+    $menus = Menu::when($keyword, function ($queryBuilder) use ($keyword) {
+        $queryBuilder->where('nama', 'like', '%' . $keyword . '%');
+    })->get();
 
     return view('menu', compact('menus'));
-    }
+}
 
     public function home()
     {
@@ -31,7 +33,9 @@ class MenuController extends Controller
    public function detail($id)
 {
     $menu = Menu::with('reviews.user')->findOrFail($id);
+    $nama = $menu->nama;
     return view('Foodvana.detailmenu', compact('menu'));
+
 }
 
 
@@ -55,30 +59,26 @@ class MenuController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(menu $menus)
+    public function show($id)
     {
-         $menus = Menu::all();
-         foreach ($menus as $menu) {
-          $id[]= $menu->id;
-          $nama[] = $menu->nama;
-          $deskripsi[]= $menu->deskripsi;
-          $harga[]= $menu->harga;
-          $gambar[] = $menu->gambar;
-          $rating[]= $menu->rating;
-            }
-                return view('dashboard.menu', compact('id', 'nama', 'deskripsi', 'harga', 'gambar', 'rating'));
-        
+        $menu = Menu::findOrFail($id);
+        return view('detailmenu', compact('menu'));
     }
-    
-    public function search(Request $request)
-    {
-       
-        $menus = menu::where('nama', 'LIKE', "%{$query}%")
-            ->orWhere('deskripsi', 'LIKE', "%{$query}%")
-            ->get();
 
-        return view('Foodvana.menu', compact('menus'));
+public function search(Request $request)
+{
+    $keyword = $request->query('query');
+
+    $menu = Menu::where('nama', 'like', '%' . $keyword . '%')->get();
+
+    if ($menu) {
+        return redirect()->route('menu.detail', ['id' => $menu[0]->id]);
+    } else {
+        return redirect()->back()->with('error', 'Menu tidak ditemukan.');
     }
+}
+
+
 
     /**
      * Show the form for editing the specified resource.

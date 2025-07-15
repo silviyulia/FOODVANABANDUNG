@@ -47,6 +47,7 @@ Route::get('/admin/users', [AdminController::class, 'table'])->name('admin.table
 Route::get('/admin/kontaks', [AdminController::class, 'kontak'])->name('admin.kontak');
 Route::get('/admin/pesanan', [AdminController::class, 'pesanan'])->name('admin.pesanan');
 Route::post('/admin/pesanan/{id}/update-status', [AdminController::class, 'updateStatus'])->name('admin.pesanan.updateStatus');
+Route::get('/admin/reviews', [AdminController::class, 'review'])->name('admin.review');
 Route::resource('admin' , AdminController::class);
 
 // halaman utama user
@@ -90,8 +91,8 @@ Route::put('/cartitem/{id}', [CartItemController::class, 'update'])->name('carti
 
 // Menu
 Route::get('/menu2', [MenuController::class, 'home'])->name('menu.home'); 
-Route::get('/menu/{id}', [MenuController::class, 'detail'])->name('menu.detail');
 Route::get('/menu/search', [MenuController::class, 'search'])->name('menu.search');
+Route::get('/menu/{id}', [MenuController::class, 'detail'])->name('menu.detail');
 
 
 //halaman checkout
@@ -115,6 +116,7 @@ Route::get('/pesanan/{id}/cetak-struk', [App\Http\Controllers\PesananController:
 //review
 Route::get('/pesanan/{id}/review', [ReviewController::class, 'form'])->name('pesanan.review');
 Route::post('/pesanan/{id}/review', [ReviewController::class, 'store'])->name('review.store');
+Route::delete('/admin/reviews/{id}', [AdminReviewController::class, 'destroy'])->name('admin.reviews.destroy');
 
 // Test session
 Route::get('/test', function (Request $request) {

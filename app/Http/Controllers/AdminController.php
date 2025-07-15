@@ -7,13 +7,15 @@ use App\Models\user;
 use App\Models\kontak;
 use App\Models\Transaksi;
 use App\Models\DetailTransaksi;
+use App\Models\Review;
+use App\Models\Menu;
 
 class AdminController extends Controller
 {
 
     public function index()
     {
-        return view('/dashboard'); // Menampilkan view dashboard admin yang benar
+        return view('/dashboard'); 
     }
     public function table()
     {
@@ -48,6 +50,12 @@ class AdminController extends Controller
         return view('admin.pesanan', compact('transaksis'));
     }
 
+    public function review()
+    {
+        $reviews = Review::with(['user', 'menu'])->latest()->paginate(10);
+        return view('admin.reviews', compact('reviews'));
+    }
+
     public function updateStatus(Request $request, $id)
 {
     $request->validate([
@@ -72,6 +80,10 @@ class AdminController extends Controller
         return view('admin.show', compact('kontak'));
         $transaksi = \App\Models\Transaksi::with('user', 'detailTransaksi.menu')->findOrFail($id);
         return view('admin.show', compact('transaksi'));
+        $reviews = Review::with(['user', 'menu'])->latest()->paginate(10);
+        return view('admin.show', compact('reviews'));
+
+
 
 
     }

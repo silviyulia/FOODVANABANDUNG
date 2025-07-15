@@ -48,18 +48,19 @@
            </div> 
 
 <!-- Ulasan Pelanggan -->
-<div class="col-md-4 bg-light border-start px-4 py-3">
+<div class="col-md-4 bg-light border-start px-1 py-2">
     <div class="card-body">
         <h5 class="mb-3">💬 Ulasan Pelanggan</h5>
         
+        <div class="overflow-auto" style="max-height: 300px;  padding-right: 8px;">
         @forelse ($menu->reviews as $review)
-            <div class="card border-0 shadow-sm mb-4 bg-white">
+            <div class="card border-0 shadow-sm mb-3 bg-white">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-2">
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode($review->user->name ?? 'Anonim') }}&background=random&size=32" 
-                             alt="avatar" class="rounded-circle me-2" width="32" height="32">
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode($review->user->username ?? 'Anonim') }}&background=random&size=32"
+                            alt="avatar" class="rounded-circle me-2" width="32" height="32">
                         <div>
-                            <strong>{{ $review->user->name ?? 'Anonim' }}</strong><br>
+                            <strong>{{ $review->user->username ?? 'Anonim' }}</strong><br>
                             <small class="text-muted">{{ $review->created_at->format('d M Y') }}</small>
                         </div>
                         <div class="ms-auto text-warning">
@@ -77,6 +78,7 @@
         @empty
             <div class="text-muted">Belum ada ulasan untuk menu ini.</div>
         @endforelse
+        </div>
     </div>
 </div>
 @endsection

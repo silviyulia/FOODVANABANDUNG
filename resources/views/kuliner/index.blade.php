@@ -8,8 +8,6 @@
 <main>
    
     <div class="container mx-auto px-4 py-6 pt-6">
-        <h1 class="text-2xl font-bold mb-4">Daftar Menu Kuliner</h1>
-
         <div class="mb-4 text-right">
             <a href="{{ route('kuliner.create') }}" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Tambah Menu Baru</a>
         </div>

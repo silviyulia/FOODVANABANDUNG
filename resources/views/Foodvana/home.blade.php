@@ -43,6 +43,9 @@
                                     @csrf
                                     <input type="hidden" name="id_menu" value="{{ $menu->id }}">
                                     <input type="hidden" name="jumlah" value="1">
+                                    <a href="{{ route('menu.detail', $menu->id) }}" class="btn btn-sm btn-outline-primary mt-2">
+                                        Lihat Detail
+                                    </a>
                                     <button type="submit" class="btn btn-sm btn-warning">
                                         <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                             viewBox="0 0 24 24" aria-hidden="true">

@@ -22,7 +22,10 @@
                         </div>
                         <div class="mt-auto d-flex justify-content-between align-items-center">
                             <span class="fw-bold text-success fs-5">Rp{{ number_format($menu->harga, 0, ',', '.') }}</span>
-                            <a href="/login" class="btn btn-sm btn-warning">Pesan</a>
+                            <div class="mt-auto d-flex justify-content-between align-items-center gap-2">
+                                <a href="/login" class="btn btn-sm btn-outline-primary">Lihat Detail</a>
+                                <a href="/login" class="btn btn-sm btn-warning">Pesan</a>
+                            </div>
                         </div>
                     </div>
                 </div>

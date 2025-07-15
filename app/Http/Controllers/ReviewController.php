@@ -15,7 +15,7 @@ class ReviewController extends Controller
     $transaksi = Transaksi::with('detailTransaksi.menu')->findOrFail($id);
 
     // optional: pastikan user hanya bisa review miliknya
-    if (session('user_id') != $transaksi->user_id) {
+    if (session('user') != $transaksi->id_user) {
         return redirect()->back()->with('error', 'Tidak diizinkan.');
     }
 
@@ -61,4 +61,11 @@ public function store(Request $request, $transaksiId)
     return redirect()->route('menu.home', $transaksiId)
         ->with('success', 'Ulasan berhasil dikirim!');
 }
+
+public function destroy($id)
+{
+    Review::destroy($id);
+    return back()->with('success', 'Ulasan berhasil dihapus!');
+}
+
 }
