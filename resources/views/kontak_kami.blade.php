@@ -20,14 +20,20 @@
             <form method="POST" action="{{ route('kontak.store') }}">
                 @csrf
 
+                @php
+                $user = session('user');
+                $username = is_array($user) ? ($user['username'] ?? '') : '';
+                $email = is_array($user) ? ($user['email'] ?? '') : '';
+                @endphp
+
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama Anda" value="{{ session('user')['username'] ?? '' }}" required>
+                    <input type="text" class="form-control" name="nama" id="nama" placeholder="Masukkan nama Anda" value="{{ $username }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan alamat email" value="{{ session('user')['email'] ?? '' }}" required>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Masukkan alamat email" value="{{ $email }}" required>
                 </div>
 
                 <div class="mb-3">

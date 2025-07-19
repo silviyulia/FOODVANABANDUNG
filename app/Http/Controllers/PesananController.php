@@ -62,29 +62,6 @@ public function index(Request $request)
 {
     return $this->hasMany(DetailTransaksi::class, 'id_transaksi');
 }
-
-
-
-    // public function pesanan()
-    // {
-        
-    //     $pesanan = [
-    //         [
-    //             "nama" => "Nasi Timbel",
-    //             "harga" => 25000,
-    //             "quantity" => 1,
-    //             "gambar" => "img/nasi.jpg"
-    //         ],
-    //         [
-    //             "nama" => "Batagor",
-    //             "harga" => 10000,
-    //             "quantity" => 2,
-    //             "gambar" => "img/batagor.jpg"
-    //         ]
-    //     ];
-
-    //     return view('/Foodvana.pesanan', compact('pesanan'));
-    // }
     
   
     public function create()
@@ -98,14 +75,6 @@ public function index(Request $request)
         //
     }
 
-
-    // public function edit(string $id)
-    // {
-    //     $pesanan = Pesanan::findOrFail($id);
-    // dd($pesanan); // cek apakah data nyampe
-    // return view('editpemesanan', compact('pesanan'));
-    //     //
-    // }
 
     public function update(Request $request, string $id)
     {

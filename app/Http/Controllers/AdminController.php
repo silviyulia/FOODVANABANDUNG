@@ -91,6 +91,7 @@ class AdminController extends Controller
     {
         $users = user::findOrFail($id);
         $users->delete();
-        return redirect()->route('admin.destroy')->with('success', 'Kuliner deleted successfully.');
+        return redirect()->route('admin.table')->with('success', 'Kuliner deleted successfully.');
     }
+
 }

@@ -49,6 +49,7 @@ Route::get('/admin/pesanan', [AdminController::class, 'pesanan'])->name('admin.p
 Route::post('/admin/pesanan/{id}/update-status', [AdminController::class, 'updateStatus'])->name('admin.pesanan.updateStatus');
 Route::get('/admin/reviews', [AdminController::class, 'review'])->name('admin.review');
 Route::resource('admin' , AdminController::class);
+Route::delete('/admin/users/{id}', [AdminController::class, 'destroy'])->name('admin.users.destroy');
 
 // halaman utama user
 Route::get('/Foodvana/home', function (Request $request) {
@@ -116,7 +117,7 @@ Route::get('/pesanan/{id}/cetak-struk', [App\Http\Controllers\PesananController:
 //review
 Route::get('/pesanan/{id}/review', [ReviewController::class, 'form'])->name('pesanan.review');
 Route::post('/pesanan/{id}/review', [ReviewController::class, 'store'])->name('review.store');
-Route::delete('/admin/reviews/{id}', [AdminReviewController::class, 'destroy'])->name('admin.reviews.destroy');
+Route::delete('/admin/reviews/{id}', [ReviewController::class, 'destroy'])->name('admin.reviews.destroy');
 
 // Test session
 Route::get('/test', function (Request $request) {

@@ -28,7 +28,7 @@
 
                 </td>
                 <td class="px-6 py-4 text-center">
-                    <form action="{{ route('admin.destroy', $user->id) }}" method="POST"
+                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST"
                           onsubmit="return confirm('Yakin ingin hapus user ini?');">
                         @csrf
                         @method('DELETE')

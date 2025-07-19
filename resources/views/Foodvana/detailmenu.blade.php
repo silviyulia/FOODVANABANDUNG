@@ -41,7 +41,7 @@
                         <input type="hidden" name="id_menu" value="{{ $menu->id }}">
                         <input type="hidden" name="jumlah" value="1">
                         <button type="submit" class="btn btn-warning mt-2">
-                            <i class="fas fa-shopping-cart me-2"></i> Pesan Sekarang
+                            <i class="fas fa-shopping-cart me-2"></i> Tambah ke keranjang
                         </button>
                     </form>
                 </div>
