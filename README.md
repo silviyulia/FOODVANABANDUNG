@@ -13,6 +13,9 @@ https://youtu.be/5BhI_ym5iNg
 
 https://1drv.ms/w/c/26de1d3c5ea590ea/EQ5lwm3LCVRLpoe3iTCyDNABPDn_MtG4U2qaBRsCJbM4bA?e=SINYJD
 
+# link video presentasi 
+https://youtu.be/NU3H04tdTV4?feature=shared
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
