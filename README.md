@@ -2,7 +2,7 @@
 
 1. **Riska safitri** (Riska) - (3312411056)
 2. **Silvi yulia rahmawati** (Vivi) - (3312411035)
-3. **Silvia kusmawardani** (Silvia) - (3312411043)
+3. **Silvia kusmawardani** (Silvia) - (3312411043) (tidak aktif)
 4. **Braja tsaqiful ilham** (Braja) - ( 3312411052)
 
 # Link Demo Aplikasi
